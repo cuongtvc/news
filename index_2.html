@@ -33,14 +33,27 @@
       margin-top: 20px;
       display: none; /* hidden by default */
     }
-    /* Notification banner for new data */
+
+    /* Sticky notification banner */
     #new-data-banner {
-      display: none;
+      position: fixed;
+      bottom: 0;       /* fixed at the bottom; change to top:0 for a top banner */
+      left: 0;
+      right: 0;
+      z-index: 9999;
       background: #ffd700;
       padding: 10px;
-      margin-bottom: 10px;
-      border-radius: 5px;
+      display: none;   /* hidden by default */
+      border-top: 2px solid #ccc; /* or some style to separate from content */
+      box-shadow: 0 -2px 5px rgba(0,0,0,0.1);
       text-align: center;
+    }
+    #banner-content {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      gap: 10px;
+      flex-wrap: wrap;
     }
     #new-data-banner button {
       background: #333;
@@ -49,7 +62,9 @@
       padding: 6px 12px;
       cursor: pointer;
       border-radius: 4px;
-      margin-left: 10px;
+    }
+    #close-banner-btn {
+      background: #999; /* Different color for the close button */
     }
   </style>
 </head>
@@ -57,14 +72,18 @@
   <div class="container">
     <h2>Latest News</h2>
 
-    <!-- Notification Banner -->
-    <div id="new-data-banner">
-      New data is available!
-      <button id="load-new-data-btn">Load New Data</button>
-    </div>
-
+    <!-- Infinite scroll news container -->
     <div id="news-container"></div>
     <div id="loading" class="loading">Loading news...</div>
+  </div>
+
+  <!-- Sticky notification banner -->
+  <div id="new-data-banner">
+    <div id="banner-content">
+      <span>New data is available!</span>
+      <button id="load-new-data-btn">Load New Data</button>
+      <button id="close-banner-btn">Close</button>
+    </div>
   </div>
 
   <script>
@@ -73,14 +92,15 @@
     let currentIndex = 0;
     const pageSize = 10;
     let isLoading = false;
-    let currentDataHash = null; // We'll store a "hash" or JSON string of the current data
+    let currentDataHash = null; // We'll store a "hash" of the current data
 
     const newsContainer = document.getElementById("news-container");
     const loadingIndicator = document.getElementById("loading");
     const newDataBanner = document.getElementById("new-data-banner");
     const loadNewDataBtn = document.getElementById("load-new-data-btn");
+    const closeBannerBtn = document.getElementById("close-banner-btn");
 
-    // Example endpoint to fetch from (replace with your real endpoint)
+    // Replace with your real endpoint
     const NEWS_ENDPOINT = "https://cuongtvc.github.io/news/data.json";
 
     /**
@@ -110,7 +130,7 @@
       isLoading = true;
       loadingIndicator.style.display = "block";
 
-      // Simulate a delay if desired; or remove the setTimeout if you want immediate load
+      // Simulate a short delay if desired
       setTimeout(() => {
         const nextBatch = newsData.slice(currentIndex, currentIndex + pageSize);
 
@@ -130,7 +150,7 @@
           // Stop listening for scroll if no more news
           window.removeEventListener("scroll", handleScroll);
         }
-      }, 500); // Example delay
+      }, 500);
     }
 
     /**
@@ -152,7 +172,7 @@
       loadingIndicator.style.display = "block";
       newsData = await fetchNewsData();
 
-      // Store a "hash" or stringified version of the array to detect changes later
+      // Store a hash (stringified version) of the data to detect changes
       currentDataHash = JSON.stringify(newsData);
 
       // Reset currentIndex and container
@@ -177,22 +197,30 @@
     }
 
     /**
-     * If user chooses to load new data, replace old data and rerender
+     * If user chooses to load new data, replace old data and re-render
      */
     function loadNewData() {
       newDataBanner.style.display = "none";
       loadInitialNews();
     }
 
+    /**
+     * Close the banner if the user doesn't want to load new data right now
+     */
+    function closeBanner() {
+      newDataBanner.style.display = "none";
+    }
+
     // Attach event handlers
     window.addEventListener("scroll", handleScroll);
     loadNewDataBtn.addEventListener("click", loadNewData);
+    closeBannerBtn.addEventListener("click", closeBanner);
 
     // Load initial data on page load
     loadInitialNews();
 
     // Check for updates every minute (60,000 ms)
-    setInterval(checkForUpdates, 60_000);
+    setInterval(checkForUpdates, 60000);
   </script>
 </body>
 </html>

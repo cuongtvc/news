@@ -143,7 +143,9 @@
           return item.importance >= prefs.importance && item.positivity >= prefs.positivity;
         });
       }
-      return newsData;
+      return newsData.filter(item => {
+          return item.importance >= 5 && item.positivity >= 5;
+        });
     }
     
     // Load more news items with infinite scroll and filtering.

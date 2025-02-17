@@ -71,7 +71,7 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
             nextBatch.forEach(item => {
                 const newsItem = document.createElement("div");
                 newsItem.classList.add("news-item");
-                newsItem.innerHTML = \`<h3>\${item.title}</h3><p>\${item.content}</p>\`;
+                newsItem.innerHTML = `<h3>${item.title}</h3><p>${item.content}</p>`;
                 newsContainer.appendChild(newsItem);
             });
 

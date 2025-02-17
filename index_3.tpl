@@ -269,13 +269,7 @@
 
     // Reset preferences, show the modal, and refresh news.
     resetPreferencesBtn.addEventListener("click", () => {
-      localStorage.removeItem("newsPreferences");
-      importanceSlider.value = 5;
-      positivitySlider.value = 5;
-      importanceValue.textContent = 5;
-      positivityValue.textContent = 5;
       showPreferencesModal();
-      refreshNews();
     });
 
     // Allow closing the modal by clicking outside the modal content.

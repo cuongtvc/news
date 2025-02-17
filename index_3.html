@@ -1,0 +1,289 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>News</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      margin: 20px;
+      padding: 0;
+      background-color: #f4f4f4;
+    }
+    .container {
+      max-width: 800px;
+      margin: 0 auto;
+      background: white;
+      padding: 20px;
+      border-radius: 5px;
+      box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+      position: relative;
+    }
+    .news-item {
+      border-bottom: 1px solid #ddd;
+      padding: 10px 0;
+    }
+    .news-item:last-child {
+      border-bottom: none;
+    }
+    .loading {
+      text-align: center;
+      font-size: 16px;
+      color: gray;
+      margin-top: 20px;
+    }
+    /* Preferences Modal Styles */
+    .modal {
+      display: none; /* Hidden by default */
+      position: fixed;
+      z-index: 1000;
+      left: 0;
+      top: 0;
+      width: 100%;
+      height: 100%;
+      overflow: auto;
+      background-color: rgba(0, 0, 0, 0.5); /* Black with opacity */
+    }
+    .modal-content {
+      background-color: #fff;
+      margin: 10% auto;
+      padding: 20px;
+      border-radius: 5px;
+      width: 90%;
+      max-width: 400px;
+      position: relative;
+    }
+    .modal-header {
+      margin-bottom: 15px;
+    }
+    .modal-header h2 {
+      margin: 0;
+    }
+    .modal-body label {
+      display: block;
+      margin-bottom: 5px;
+    }
+    .modal-body input[type="range"] {
+      width: 100%;
+      margin-bottom: 5px;
+    }
+    .modal-body span {
+      display: inline-block;
+      margin-bottom: 15px;
+      font-weight: bold;
+    }
+    .modal-footer {
+      text-align: right;
+    }
+    .modal-footer button {
+      padding: 8px 16px;
+      margin-left: 10px;
+    }
+    /* Reset Preferences Button */
+    #reset-preferences {
+      position: absolute;
+      top: 20px;
+      right: 20px;
+      background-color: #007BFF;
+      color: #fff;
+      border: none;
+      padding: 8px 12px;
+      border-radius: 3px;
+      cursor: pointer;
+    }
+    #reset-preferences:hover {
+      background-color: #0056b3;
+    }
+  </style>
+</head>
+<body>
+  
+  <div class="container">
+    <button id="reset-preferences">Reset Preferences</button>
+    <h2>Latest News</h2>
+    <div id="news-container"></div>
+    <div id="loading" class="loading">Loading more news...</div>
+  </div>
+
+  <!-- Preferences Modal -->
+  <div id="preferences-modal" class="modal">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h2>Set Your Preferences</h2>
+      </div>
+      <div class="modal-body">
+        <label for="importance-slider">Article Importance (1-10)</label>
+        <input type="range" id="importance-slider" min="1" max="10" value="5" />
+        <span id="importance-value">5</span>
+        
+        <label for="positivity-slider">Article Positivity (1-10)</label>
+        <input type="range" id="positivity-slider" min="1" max="10" value="5" />
+        <span id="positivity-value">5</span>
+      </div>
+      <div class="modal-footer">
+        <button id="save-preferences">Save</button>
+      </div>
+    </div>
+  </div>
+
+  <script>
+    // Simulated news data; each article has title, content, importance, and positivity.
+    const newsData = [{"title":"Lý do ông Trump muốn gặp thượng đỉnh ông Putin ở Arab Saudi","content":"Ông Trump muốn gặp ông Putin tại Arab Saudi do quốc gia này duy trì quan hệ tốt với cả Mỹ và Nga và đã từng giúp trao đổi tù nhân thành công. Cuộc gặp sẽ diễn ra nhằm thảo luận về việc chấm dứt chiến sự tại Ukraine, và đây có thể là hội nghị thượng đỉnh đầu tiên giữa hai lãnh đạo kể từ khi xung đột bùng nổ. Arab Saudi không tham gia Tòa Hình sự Quốc tế, giúp ông Putin có thể tới đây mà không lo bị bắt, và quốc gia này được xem là trung gian đáng tin cậy trong việc hòa giải giữa Mỹ và Nga.","positivity":7,"importance":8},{"title":"Cuộc sống như nô lệ của lao động người Việt trong trại cần sa Anh","content":"Bài viết mô tả cuộc sống khốn khổ của Xuan, một người Việt bị giam giữ trong một trại cần sa ở Anh, nơi anh bị ép làm việc mà không được trả lương và bị đe dọa tính mạng. Sự gia tăng số lượng người Việt di cư trái phép vào Anh đã dẫn đến việc nhiều người trở thành nạn nhân của chế độ nô lệ hiện đại, với hơn 1.000 người báo cáo tình trạng này trong năm 2023. Dù chính phủ Anh và Việt Nam đã ký thỏa thuận chống buôn người, nhiều nạn nhân vẫn đang sống trong cảnh khổ sở và phải chờ đợi sự cứu giúp.","positivity":2,"importance":9},{"title":"Ukraine sản xuất vũ khí 'nhanh hơn phần còn lại của châu Âu'","content":"Thủ tướng Đan Mạch Mette Frederiksen cho biết Ukraine đang sản xuất vũ khí nhanh hơn bất kỳ quốc gia nào ở châu Âu, điều này đặt ra một cảnh báo cho phương Tây về sự cần thiết phải tăng cường sản xuất quốc phòng. Trong bối cảnh cuộc xung đột kéo dài gần ba năm, Ukraine đã phát triển mạnh mẽ ngành công nghiệp quốc phòng, với 30% thiết bị quân sự của họ trong năm 2024 là sản phẩm nội địa, bao gồm cả drone và đạn pháo. Các quan chức châu Âu kêu gọi cần phải hành động nhanh chóng hơn để đảm bảo an ninh và cạnh tranh với sản lượng vũ khí của Nga.","positivity":7,"importance":9},{"title":"Đảng cực hữu Đức kêu gọi thiết lập 'quan hệ rất tốt' với Nga","content":"Alice Weidel, co-chair of Germany's far-right AfD party, has called for Berlin to establish 'very good relations' with Moscow, arguing that sanctions against Russia have only caused problems. In an interview, she emphasized the need for economic cooperation with Russia, citing the benefits of cheaper gas prior to the Ukraine conflict. Weidel expressed concern over Germany's hostile stance towards Russia and advocated for negotiations to ease tensions, calling for a return to a neutral role in the Ukraine conflict. This statement comes amid rising support for AfD as Germany approaches a general election.","positivity":3,"importance":7},{"title":"Điện Kremlin nói có thể tiếp đón ông Trump bất cứ lúc nào","content":"Điện Kremlin đã thông báo rằng họ có thể tiếp đón Tổng thống Mỹ Donald Trump bất cứ lúc nào, sau khi ông Trump bày tỏ khả năng gặp Tổng thống Nga Vladimir Putin. Phát ngôn viên Dmitry Peskov nhấn mạnh sự cần thiết của các cuộc họp giữa hai lãnh đạo và mong muốn Washington dỡ bỏ lệnh trừng phạt đối với Nga. Ông cũng ca ngợi cuộc điện đàm gần đây giữa Trump và Putin như một dấu hiệu tích cực cho đối thoại hòa bình, đặc biệt trong bối cảnh các cuộc đàm phán về Ukraine sắp diễn ra.","positivity":7,"importance":8},{"title":"Lính Ukraine bị chê lãng phí vũ khí phương Tây","content":"Binh sĩ Anh đã chỉ trích lính Ukraine về việc lãng phí vũ khí phương Tây, đặc biệt là các tên lửa chống tăng như NLAW và Javelin, với nhiều trường hợp bỏ lại trang bị trên chiến trường. Một binh sĩ Anh cho biết lính Ukraine sử dụng tên lửa NLAW như thể chúng là súng phóng lựu rẻ tiền, dẫn đến việc tiêu tốn hàng trăm ngàn USD mỗi lần bắn. Dù Anh đã viện trợ hàng nghìn vũ khí cho Ukraine, nhưng sự không hiệu quả trong huấn luyện và áp dụng chiến thuật NATO đã khiến nhiều binh sĩ Ukraine gặp khó khăn trong việc sử dụng vũ khí một cách hiệu quả.","positivity":3,"importance":8},{"title":"Lao động nhập cư thấp thỏm vì chiến dịch trục xuất của ông Trump","content":"Nhiều lao động nhập cư hợp pháp ở Mỹ đang cảm thấy lo lắng và hạn chế ra ngoài do chiến dịch trục xuất của Tổng thống Trump, điều này đã gây ra tình trạng thiếu hụt lao động nghiêm trọng tại nhiều doanh nghiệp. Sau khi một cuộc truy quét của ICE diễn ra tại Newark, một số nhân viên hợp pháp đã không còn đến làm việc, khiến chủ doanh nghiệp phải tự mình làm việc. Các ngành như xây dựng và dịch vụ ăn uống đang gặp khó khăn trong việc tuyển dụng do nỗi sợ hãi của lao động nhập cư. Mặc dù một số lao động vẫn tiếp tục làm việc, nhưng nhiều người cảm thấy không an toàn và lo ngại về tương lai của họ.","positivity":3,"importance":8},{"title":"Khoảnh khắc 'người rừng' Brazil học cách dùng bật lửa","content":"Một thanh niên thuộc bộ tộc bản địa sống biệt lập ở Brazil đã lần đầu tiên đến ngôi làng Bela Rosa và được hướng dẫn cách sử dụng bật lửa. Dù cố gắng học hỏi, anh không thể quẹt bật lửa do chưa từng tiếp xúc với nền văn minh bên ngoài. Sau khi được mời ăn cá và kiểm tra sức khỏe, thanh niên này đã quay trở lại rừng chỉ sau 24 giờ. Bộ tộc của anh đối mặt với nguy cơ xâm lấn đất đai và xung đột với các cộng đồng xung quanh.","positivity":7,"importance":8},{"title":"Châu Âu hôm nay họp khẩn về Ukraine","content":"Châu Âu tổ chức một cuộc họp khẩn tại Paris do Tổng thống Pháp Emmanuel Macron chủ trì, nhằm thảo luận về tình hình Ukraine sau khi Mỹ tuyên bố sẽ không bao gồm châu Âu trong các cuộc đàm phán hòa bình. Cuộc họp có sự tham gia của các lãnh đạo từ nhiều quốc gia châu Âu và các quan chức cấp cao từ Liên minh châu Âu và NATO. Diễn biến này xuất phát từ lo ngại rằng Mỹ có thể nhượng bộ Nga trong các vấn đề liên quan đến xung đột Ukraine.","positivity":4,"importance":8},{"title":"Thủ tướng Anh: Sẵn sàng gửi quân đến Ukraine để đảm bảo an ninh","content":"Thủ tướng Anh Keir Starmer đã tuyên bố rằng ông sẵn sàng gửi quân đến Ukraine để đảm bảo an ninh cho cả Ukraine và châu Âu, nhấn mạnh vai trò lãnh đạo của Anh trong việc hỗ trợ quân sự cho Ukraine. Ông cam kết hỗ trợ tài chính lên tới 3 tỷ bảng Anh mỗi năm cho quân đội Ukraine và sẵn sàng xem xét việc thiết lập lực lượng gìn giữ hòa bình châu Âu tại Ukraine. Starmer cũng bày tỏ quan ngại về các cuộc đàm phán hòa bình giữa Mỹ và Nga mà không có sự tham gia của Ukraine và châu Âu, đồng thời khẳng định tầm quan trọng của sự hợp tác giữa Mỹ và châu Âu trong việc đảm bảo an ninh chung.","positivity":6,"importance":9},{"title":"Ukraine nói Nga gia tăng sức ép ở mặt trận Donetsk","content":"Quân đội Ukraine thông báo rằng lực lượng Nga đang gia tăng sức ép tại mặt trận Donetsk, đặc biệt là gần thành phố Pokrovsk, với 261 cuộc giao tranh đã diễn ra chỉ trong một ngày. Tổng thống Zelensky cho biết Nga đã thực hiện hàng nghìn cuộc không kích và phóng tên lửa vào Ukraine trong tuần qua. Nếu Nga chiếm được Pokrovsk, điều này sẽ làm suy yếu đáng kể khả năng phòng thủ của Ukraine tại tỉnh Donetsk. Quân đội Ukraine cũng đã thay đổi chiến thuật để đối phó với áp lực từ phía Nga.","positivity":3,"importance":9},{"title":"Tổng thống Trump nói sẽ 'rất sớm' gặp ông Putin","content":"Tổng thống Trump thông báo rằng ông sẽ sớm gặp Tổng thống Nga Vladimir Putin để thảo luận về việc chấm dứt xung đột Ukraine, mặc dù không cung cấp thời gian cụ thể cho cuộc gặp. Ông cam kết nỗ lực đạt được hòa bình và cho biết đã có các cuộc thảo luận khó khăn với quan chức Nga. Ngoại trưởng Mỹ Marco Rubio nhấn mạnh rằng việc giải quyết cuộc xung đột Ukraine là một thách thức lớn và cuộc gặp nhằm khởi động các cuộc đối thoại lớn hơn về tình hình Ukraine. Tuy nhiên, Tổng thống Ukraine Zelensky bày tỏ lo ngại về việc không được mời tham gia các cuộc đàm phán này.","positivity":6,"importance":8},{"title":"Mỹ công bố ảnh tàu sân bay rách đuôi sau vụ va chạm tàu hàng","content":"Mỹ đã công bố hình ảnh cho thấy vết rách ở đuôi tàu sân bay USS Harry S. Truman sau vụ va chạm với tàu hàng Besiktas-M gần cảng Said của Ai Cập. Tàu đã cập cảng ở vịnh Souda, Hy Lạp, để sửa chữa thiệt hại, và các đánh giá về mức độ hư hại đang được tiến hành. Dù có sự cố, USS Harry S. Truman vẫn đủ khả năng tác chiến và tiếp tục thực hiện các chuyến bay bình thường. Hải quân Mỹ khẳng định không có thương vong và không có nguy cơ đối với lò phản ứng hạt nhân trên tàu.","positivity":7,"importance":6},{"title":"Châu Âu âm thầm lên kế hoạch cho Ukraine hậu xung đột","content":"Châu Âu đang âm thầm chuẩn bị cho sự ổn định và an ninh của Ukraine sau khi xung đột với Nga kết thúc, đặc biệt là trong bối cảnh lo ngại về sự thay đổi trong chính sách của Mỹ. Các lãnh đạo châu Âu, do Anh và Pháp dẫn đầu, đã thảo luận về khả năng triển khai quân đội tới Ukraine để bảo vệ an ninh nước này và thực thi các thỏa thuận hòa bình tiềm năng. Tuy nhiên, kế hoạch triển khai quân đội vẫn đang ở giai đoạn đầu và phụ thuộc vào điều kiện của thỏa thuận hòa bình cũng như sự đồng thuận giữa các nước châu Âu.","positivity":6,"importance":8},{"title":"Cách gia đình ông Trump kiếm tiền sau chiến thắng bầu cử","content":"Sau khi ông Trump đắc cử, gia đình ông đã tận dụng cơ hội kinh doanh từ việc dàn xếp kiện tụng và các dự án mới. Melania Trump đã ký hợp đồng với Amazon để phát sóng bộ phim tài liệu về cuộc sống Đệ nhất phu nhân với giá 40 triệu USD, trong khi các thành viên khác trong gia đình cũng tham gia vào nhiều thỏa thuận tài chính khác. Tổng thống Trump và con trai Don Jr. đang tích cực tìm kiếm các cơ hội đầu tư và hợp tác trong các lĩnh vực như tiền điện tử và các công ty bảo thủ, giúp gia đình ông kiếm được hàng triệu USD từ các thương vụ này.","positivity":8,"importance":7},{"title":"Ông Zelensky: Ukraine không được mời họp cùng Mỹ - Nga","content":"Tổng thống Ukraine Volodymyr Zelensky cho biết nước này không nhận được lời mời tham gia cuộc họp giữa Mỹ và Nga dự kiến diễn ra tại Arab Saudi để thảo luận về giải pháp cho xung đột tại Ukraine. Ông bày tỏ sự bối rối khi các cuộc đàm phán quan trọng lại diễn ra mà không có sự tham gia của Ukraine, nhấn mạnh rằng bất kỳ thỏa thuận hòa bình nào cũng cần có sự hiện diện của nước này. Ông cũng cảnh báo về khả năng Nga có thể phát động chiến tranh chống lại NATO nếu liên minh quân sự suy yếu.","positivity":3,"importance":8},{"title":"Ngoại trưởng Mỹ chỉ trích Iran gây bất ổn Trung Đông","content":"Ngoại trưởng Mỹ Marco Rubio đã chỉ trích Iran là \"nguồn gây bất ổn lớn nhất ở Trung Đông\" trong cuộc họp báo tại Jerusalem cùng Thủ tướng Israel Benjamin Netanyahu. Ông nhấn mạnh rằng Washington sẽ không cho phép Iran sở hữu vũ khí hạt nhân và khẳng định rằng các hành động của Iran đe dọa hòa bình và ổn định trong khu vực. Netanyahu cũng đồng tình rằng Mỹ và Israel cần hợp tác để đối phó với các mối đe dọa từ Iran và đã có những hành động quân sự nhằm giảm sức mạnh của Hezbollah và ngăn chặn Iran ở Syria.","positivity":3,"importance":8},{"title":"Nhà Trắng hối thúc Boeing giao chuyên cơ mới cho ông Trump","content":"Nhà Trắng đã chỉ trích Boeing vì chậm tiến độ giao chuyên cơ Không lực Một mới cho Tổng thống Donald Trump và yêu cầu hãng tăng tốc quá trình bàn giao. Tổng thống Trump gần đây đã tham quan một chiếc Boeing 747-8 tại Florida để đánh giá công nghệ mới cho chuyên cơ. Dự án chế tạo hai máy bay VC-25B đã bị hoãn đến năm 2027 hoặc 2028, do chi phí tăng cao và khó khăn trong chuỗi cung ứng. Trump cũng đã từng gây áp lực với Boeing để giảm chi phí dự án nhưng vẫn có những lo ngại về việc trang bị đầy đủ hệ thống cần thiết cho máy bay.","positivity":4,"importance":7},{"title":"Thành phố Argentina gây tranh cãi vì kế hoạch triệt sản capybara","content":"Thành phố Nordelta ở Argentina đang gây tranh cãi với kế hoạch triệt sản và sử dụng thuốc tránh thai để kiểm soát số lượng capybara, loài động vật được yêu thích, do dân số của chúng đã tăng gấp ba lần trong ba năm qua. Dù chính quyền cho rằng sự gia tăng này gây ra các vấn đề như tai nạn giao thông và hành vi hung hăng với thú nuôi, nhiều cư dân và nhà bảo vệ môi trường phản đối kế hoạch, kêu gọi thiết lập các khu bảo tồn để bảo vệ loài này. Họ cho rằng capybara không phát triển quá mức và đề xuất các giải pháp bền vững hơn.","positivity":4,"importance":7},{"title":"Những chính sách nguy cơ châm ngòi bất ổn kinh tế của ông Trump","content":"Tổng thống Trump đã triển khai nhiều chính sách nhằm đưa Mỹ trở lại thời kỳ hưng thịnh, nhưng những biện pháp này có nguy cơ gây bất ổn cho nền kinh tế. Việc áp thuế lên Canada, Mexico và Trung Quốc đã dẫn đến phản ứng tiêu cực từ thị trường, trong khi chính sách trục xuất người nhập cư có thể làm thiếu hụt nguồn lao động. Nhiều doanh nghiệp đang gặp khó khăn trong việc thích ứng với sự biến động này, và các chuyên gia cảnh báo rằng những chính sách này có thể làm gia tăng lạm phát và giảm tăng trưởng GDP trong những năm tới.","positivity":3,"importance":8},{"title":"Israel nhận gần 2.000 quả bom tấn được ông Trump phê duyệt","content":"Israel vừa nhận gần 2.000 quả bom Mark 84 sau khi Tổng thống Trump gỡ bỏ hạn chế do chính quyền Biden áp đặt. Lô hàng gồm 1.800 quả bom đã cập cảng Ashdod và được Bộ Quốc phòng Israel gọi là \"khí tài quan trọng\" cho không quân nước này. Trước đó, chính quyền Biden đã đình chỉ chuyển giao loại bom này do lo ngại tấn công vào các khu vực đông dân cư ở Dải Gaza. Sự kiện này diễn ra trong bối cảnh lệnh ngừng bắn giữa Israel và Hamas đang gặp nguy cơ sụp đổ.","positivity":4,"importance":8},{"title":"Ba Lan bác khả năng thành lập 'quân đội châu Âu'","content":"Ngoại trưởng Ba Lan, Radoslaw Sikorski, đã bác bỏ khả năng thành lập một 'quân đội châu Âu' thống nhất như Tổng thống Ukraine Volodymyr Zelensky đã kêu gọi. Ông nhấn mạnh rằng việc hợp nhất quân đội các quốc gia sẽ không xảy ra, mặc dù ông ủng hộ việc nâng cao năng lực phòng thủ của châu Âu. Ba Lan cũng không có kế hoạch triển khai lực lượng đến Ukraine, khẳng định nghĩa vụ của mình đối với NATO trong việc bảo vệ khu vực phía đông của liên minh.","positivity":4,"importance":6},{"title":"Cựu tổng thống Philippines đùa 'đánh bom, giết 15 thượng nghị sĩ'","content":"Cựu tổng thống Philippines Rodrigo Duterte đã gây tranh cãi khi đùa rằng cần phải \"đánh bom, giết 15 thượng nghị sĩ\" để đảm bảo chiến thắng cho các ứng viên mà ông ủng hộ trong cuộc bầu cử giữa kỳ sắp tới. Phát biểu này được đưa ra trong một sự kiện vận động tranh cử hôm 13/2, khiến ông hứng chịu nhiều chỉ trích từ các chính trị gia đối lập, trong đó có Tổng thống Ferdinand Marcos Jr. và Hạ nghị sĩ Zia Alonto Adiong, người đã kêu gọi điều tra về lời nói của Duterte. Những phát ngôn này gợi nhớ đến phong cách lãnh đạo gây tranh cãi của ông trong thời gian đương nhiệm.","positivity":2,"importance":8},{"title":"Phái viên Mỹ: Châu Âu sẽ không tham gia đàm phán về Ukraine","content":"Đặc phái viên Mỹ Keith Kellogg thông báo rằng châu Âu sẽ không tham gia vào các cuộc đàm phán hòa bình về Ukraine, điều này đã khiến một số lãnh đạo châu Âu bày tỏ sự không đồng tình. Ông Kellogg nhấn mạnh rằng Mỹ sẽ giữ vai trò trung gian cho các cuộc đàm phán giữa Moskva và Kiev, đồng thời cho biết các cường quốc phương Tây cần tăng cường thực thi lệnh trừng phạt đối với Nga. Tổng thống Zelensky cũng bày tỏ mong muốn đặc phái viên Mỹ đến thăm tiền tuyến để hiểu rõ hơn tình hình thực tế tại Ukraine.","positivity":4,"importance":8}];
+    let currentIndex = 0;
+    const pageSize = 10;
+    let isLoading = false;
+    
+    // Return filtered news based on saved user preferences.
+    function getFilteredNewsData() {
+      const stored = localStorage.getItem("newsPreferences");
+      if (stored) {
+        const prefs = JSON.parse(stored);
+        return newsData.filter(item => {
+          return item.importance >= prefs.importance && item.positivity >= prefs.positivity;
+        });
+      }
+      return newsData;
+    }
+    
+    // Load more news items with infinite scroll and filtering.
+    function loadMoreNews() {
+      if (isLoading) return;
+      isLoading = true;
+      document.getElementById("loading").style.display = "block";
+
+      setTimeout(() => {
+        const newsContainer = document.getElementById("news-container");
+        const filteredNews = getFilteredNewsData();
+        const nextBatch = filteredNews.slice(currentIndex, currentIndex + pageSize);
+
+        // If no articles match the filter, display a message.
+        if (filteredNews.length === 0 && currentIndex === 0) {
+          newsContainer.innerHTML = "<p>No articles match your preferences.</p>";
+          document.getElementById("loading").style.display = "none";
+          window.removeEventListener("scroll", handleScroll);
+          isLoading = false;
+          return;
+        }
+
+        nextBatch.forEach(item => {
+          const newsItem = document.createElement("div");
+          newsItem.classList.add("news-item");
+          newsItem.innerHTML = `<h3>${item.title}</h3><p>${item.content}</p>`;
+          newsContainer.appendChild(newsItem);
+        });
+
+        currentIndex += pageSize;
+        isLoading = false;
+
+        if (currentIndex >= filteredNews.length) {
+          document.getElementById("loading").style.display = "none";
+          window.removeEventListener("scroll", handleScroll);
+        }
+      }, 1000); // Simulating a delay
+    }
+
+    function handleScroll() {
+      if (window.innerHeight + window.scrollY >= document.body.offsetHeight - 200) {
+        loadMoreNews();
+      }
+    }
+
+    // Refresh the news list when preferences change.
+    function refreshNews() {
+      currentIndex = 0;
+      document.getElementById("news-container").innerHTML = "";
+      document.getElementById("loading").style.display = "block";
+      window.addEventListener("scroll", handleScroll);
+      loadMoreNews();
+    }
+
+    // Load initial news items.
+    loadMoreNews();
+    window.addEventListener("scroll", handleScroll);
+
+    // Preferences Modal Logic
+    const preferencesModal = document.getElementById("preferences-modal");
+    const importanceSlider = document.getElementById("importance-slider");
+    const positivitySlider = document.getElementById("positivity-slider");
+    const importanceValue = document.getElementById("importance-value");
+    const positivityValue = document.getElementById("positivity-value");
+    const savePreferencesBtn = document.getElementById("save-preferences");
+    const resetPreferencesBtn = document.getElementById("reset-preferences");
+
+    importanceSlider.addEventListener("input", () => {
+      importanceValue.textContent = importanceSlider.value;
+    });
+    positivitySlider.addEventListener("input", () => {
+      positivityValue.textContent = positivitySlider.value;
+    });
+
+    function showPreferencesModal() {
+      preferencesModal.style.display = "block";
+    }
+
+    function hidePreferencesModal() {
+      preferencesModal.style.display = "none";
+    }
+
+    // Save preferences and refresh the news list.
+    function savePreferences() {
+      const preferences = {
+        importance: importanceSlider.value,
+        positivity: positivitySlider.value,
+        timestamp: new Date().getTime()
+      };
+      localStorage.setItem("newsPreferences", JSON.stringify(preferences));
+      refreshNews();
+    }
+
+    // Load stored preferences (if available) and update the slider values.
+    function loadPreferences() {
+      const stored = localStorage.getItem("newsPreferences");
+      if (stored) {
+        const prefs = JSON.parse(stored);
+        importanceSlider.value = prefs.importance;
+        positivitySlider.value = prefs.positivity;
+        importanceValue.textContent = prefs.importance;
+        positivityValue.textContent = prefs.positivity;
+        return true;
+      }
+      return false;
+    }
+
+    // After 20 seconds, if no preferences have been set, show the modal.
+    window.addEventListener("load", () => {
+      if (!loadPreferences()) {
+        setTimeout(() => {
+          if (!localStorage.getItem("newsPreferences")) {
+            showPreferencesModal();
+          }
+        }, 20000);
+      }
+    });
+
+    savePreferencesBtn.addEventListener("click", () => {
+      savePreferences();
+      hidePreferencesModal();
+    });
+
+    // Reset preferences, show the modal, and refresh news.
+    resetPreferencesBtn.addEventListener("click", () => {
+      localStorage.removeItem("newsPreferences");
+      importanceSlider.value = 5;
+      positivitySlider.value = 5;
+      importanceValue.textContent = 5;
+      positivityValue.textContent = 5;
+      showPreferencesModal();
+      refreshNews();
+    });
+
+    // Allow closing the modal by clicking outside the modal content.
+    window.addEventListener("click", (event) => {
+      if (event.target == preferencesModal) {
+        hidePreferencesModal();
+      }
+    });
+  </script>
+</body>
+</html>

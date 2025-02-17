@@ -100,7 +100,7 @@
 <body>
   
   <div class="container">
-    <button id="reset-preferences">Reset Preferences</button>
+    <button id="reset-preferences">Set Preferences</button>
     <h2>Latest News</h2>
     <div id="news-container"></div>
     <div id="loading" class="loading">Loading more news...</div>

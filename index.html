@@ -219,7 +219,7 @@
           newsItem.classList.add("news-item");
           newsItem.innerHTML = `
             <h3>${item.title}</h3>
-            <a class="news-link" onclick="openNewTab('${item.link}')">${item.link}</a>
+            <a class="news-link" href="#" onclick="openNewTab('${item.link}')">${item.link}</a>
             <p>${item.content}</p>
           `;
           newsContainer.appendChild(newsItem);

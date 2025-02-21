@@ -218,12 +218,10 @@
           const newsItem = document.createElement("div");
           newsItem.classList.add("news-item");
           let title = `'${item.title}'`;
-          let displayedHelpCount = localStorage.getItem("displayedHelpCount")
+          let displayedHelpCount = localStorage.getItem("displayedHelpCount");
+          displayedHelpCount = (displayedHelpCount !== null ? Number(displayedHelpCount) : 0);
           if (!displayedHelpCount || displayedHelpCount < 3) {
               title = `'${title}' (Click để xem)`;
-              if (!displayedHelpCount) {
-                displayedHelpCount = 0;
-              }
               localStorage.setItem("displayedHelpCount", displayedHelpCount + 1);
           }
           newsItem.innerHTML = `

@@ -218,7 +218,7 @@
           const newsItem = document.createElement("div");
           newsItem.classList.add("news-item");
           newsItem.innerHTML = `
-            <button style="news-title" onclick="openNewTab(${item.link})">${item.title}</button>
+            <h3 style="news-title" onclick="openNewTab('${item.link}')">${item.title}</h3>
           `;
           newsContainer.appendChild(newsItem);
         });
@@ -269,7 +269,7 @@
     function openNewTab(link) {
         pushDataLayer({event: 'view_details'});
         window.open(link, '_blank');
-      }
+    }
 
     // Initial load
     loadMoreNews();

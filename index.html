@@ -217,8 +217,17 @@
         nextBatch.forEach(item => {
           const newsItem = document.createElement("div");
           newsItem.classList.add("news-item");
+          let title = `'${item.title}'`;
+          const displayedHelpCount = localStorage.getItem("displayedHelpCount")
+          if (!displayedHelpCount || displayedHelpCount < 3) {
+              title = `'${title}' (Click để xem)`;
+              if (!displayedHelpCount) {
+                displayedHelpCount = 0;
+              }
+              localStorage.setItem("displayedHelpCount", displayedHelpCount + 1);
+          }
           newsItem.innerHTML = `
-            <h3 class="news-title" onclick="openNewTab('${item.link}')">${item.title} (Click để xem)</h3>
+            <h3 class="news-title" onclick="openNewTab('${item.link}')">${title}</h3>
           `;
           newsContainer.appendChild(newsItem);
         });

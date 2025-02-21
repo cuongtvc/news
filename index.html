@@ -97,7 +97,7 @@
       box-shadow: 0 2px 5px rgba(0,0,0,0.3);
       transition: opacity 0.3s ease;
     }
-    .news-title {
+    .news-link {
       cursor: pointer;
     }
   </style>
@@ -217,15 +217,9 @@
         nextBatch.forEach(item => {
           const newsItem = document.createElement("div");
           newsItem.classList.add("news-item");
-          let title = `'${item.title}'`;
-          let displayedHelpCount = localStorage.getItem("displayedHelpCount");
-          displayedHelpCount = (displayedHelpCount !== null ? Number(displayedHelpCount) : 0);
-          if (!displayedHelpCount || displayedHelpCount < 3) {
-              title = `'${title}' (Click để xem)`;
-              localStorage.setItem("displayedHelpCount", displayedHelpCount + 1);
-          }
           newsItem.innerHTML = `
-            <h3 class="news-title" onclick="openNewTab('${item.link}')">${title}</h3>
+            <h3>${item.title}</h3>
+            <a class="news-link" onclick="openNewTab('${item.link}')">${item.link}</a>
             <p>${item.content}</p>
           `;
           newsContainer.appendChild(newsItem);

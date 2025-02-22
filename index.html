@@ -216,10 +216,11 @@
 
         nextBatch.forEach(item => {
           const newsItem = document.createElement("div");
+          const newsId = convertVietnameseToEnglish(`'${item.title}'`);
           newsItem.classList.add("news-item");
           newsItem.innerHTML = `
-            <h3>${item.title}</h3>
-            <a class="news-link" href="#${item.title}" onclick="openNewTab('${item.link}')">${item.link}</a>
+            <h3 id='${newsId}'>${item.title}</h3>
+            <a class="news-link" href="#${newsId}" onclick="openNewTab('${item.link}')">${item.link}</a>
             <p>${item.content}</p>
           `;
           newsContainer.appendChild(newsItem);
@@ -271,6 +272,26 @@
     function openNewTab(link) {
         pushDataLayer({event: 'view_details'});
         window.open(link, '_self');
+    }
+
+    function convertVietnameseToEnglish(str) {
+      // Convert to lowercase for consistency
+      str = str.toLowerCase();
+
+      // Normalize the string to separate diacritics from letters
+      str = str.normalize('NFD');
+
+      // Remove diacritical marks
+      str = str.replace(/[\u0300-\u036f]/g, '');
+
+      // Replace Vietnamese specific characters not handled by normalization
+      str = str.replace(/đ/g, 'd');
+
+      // Remove any remaining non-alphanumeric characters except spaces and hyphens
+      str = str.replace(/[^a-z0-9\s-]/g, '');
+
+      // Replace spaces (and consecutive spaces) with a single hyphen and trim extra hyphens
+      return str.trim().replace(/\s+/g, '-');
     }
 
     // Initial load

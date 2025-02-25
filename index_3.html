@@ -220,7 +220,6 @@
       const titleElem = document.createElement("h3");
       titleElem.id = newsId;
       titleElem.textContent = item.title;
-      titleElem.textContent = item.content || "";
       titleElem.style.display = wasAnswered ? "block" : "none";
 
       // Link
@@ -229,13 +228,11 @@
       linkElem.href = "#" + newsId;
       linkElem.textContent = item.link;
       linkElem.onclick = () => openNewTab(item.link);
-      linkElem.textContent = item.content || "";
       linkElem.style.display = wasAnswered ? "block" : "none";
 
       // Content
       const contentElem = document.createElement("p");
       contentElem.textContent = item.content;
-      contentElem.textContent = item.content || "";
       contentElem.style.display = wasAnswered ? "block" : "none";
 
       // If no question is defined or it's answered, we won't show Q&A again

@@ -533,7 +533,6 @@
     function initTheme() {
       const savedTheme = localStorage.getItem("theme") || "light";
       document.body.setAttribute("data-theme", savedTheme);
-      themeToggleBtn.textContent = savedTheme === "dark" ? "Light Mode" : "Dark Mode";
     }
     initTheme();
 
@@ -547,8 +546,8 @@
       themeIcon.innerHTML = newTheme === "dark"
         ? '<path fill="currentColor" d="M12 2a9.99 9.99 0 0 0-3.92 19.27c.5.18.83-.52.42-.9A7.93 7.93 0 0 1 12 4c4.41 0 8 3.59 8 8 0 3.03-1.71 5.64-4.24 7.08-.43.26-.2.96.32.88A9.99 9.99 0 0 0 12 2z"></path>'
         : '<path fill="currentColor" d="M6.76 4.84l-1.8-1.8-1.41 1.41 1.8 1.8c-1.12 1.5-1.8 3.38-1.8 5.45s.68 3.95 1.8 5.45l-1.8 1.8 1.41 1.41 1.8-1.8c1.5 1.12 3.38 1.8 5.45 1.8s3.95-.68 5.45-1.8l1.8 1.8 1.41-1.41-1.8-1.8c1.12-1.5 1.8-3.38 1.8-5.45s-.68-3.95-1.8-5.45l1.8-1.8-1.41-1.41-1.8 1.8c-1.5-1.12-3.38-1.8-5.45-1.8s-3.95.68-5.45 1.8z"></path>';
-        pushDataLayer({event: 'theme_' + newTheme});
-      }
+      pushDataLayer({event: 'theme_' + newTheme});
+    }
 
 
     function toggleSound() {

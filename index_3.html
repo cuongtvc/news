@@ -488,7 +488,18 @@
 
     // RENDER Q&A
     function renderQuestionAndAnswers(item, container, newsId) {
-      // Build and append question text, answer buttons, etc.
+      const answeredKey = "answered_" + newsId;
+
+      const contentElem = document.createElement("p");
+      contentElem.textContent = item.content || "";
+
+      const linkElem = document.createElement("a");
+      linkElem.className = "news-link";
+      linkElem.href = "#" + newsId;
+      linkElem.textContent = item.link || "Đọc thêm...";
+      linkElem.onclick = () => openNewTab(item.link);
+
+      // Build Q&A
       const questionElem = document.createElement("p");
       questionElem.id = newsId;
       questionElem.style.fontWeight = "bold";
@@ -503,15 +514,15 @@
         answerBtn.className = "answer-btn";
         answerBtn.textContent = answer.text;
         answerBtn.addEventListener("click", () => {
-          if (localStorage.getItem("answered_" + newsId)) return;
+          if (localStorage.getItem(answeredKey)) return;
           if (answer.correct) {
             userScore++;
             localStorage.setItem("userScore", userScore);
             scoreboardElem.textContent = userScore;
             answerBtn.classList.add("correct");
-            localStorage.setItem("answered_" + newsId, "true");
+            localStorage.setItem(answeredKey, "true");
             playCorrectSound();
-            // show celebration, trigger confetti, etc.
+            showCelebration();
           } else {
             answerBtn.classList.add("incorrect");
             setTimeout(() => { answerBtn.classList.remove("incorrect"); }, 500);

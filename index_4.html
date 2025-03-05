@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Redirecting...</title>
+  <script>
+    (function() {
+      const params = new URLSearchParams(window.location.search);
+      let dest = params.get('dest');
+
+      if (dest) {
+        // If the query parameter exists, store it.
+        localStorage.setItem('dest', dest);
+      } else {
+        // If no query param, check if a value is stored.
+        dest = localStorage.getItem('dest');
+        if (!dest) {
+          // If no stored value, randomly choose from the allowed options.
+          const options = ["", "shortnews", "quizzes"];
+          dest = options[Math.floor(Math.random() * options.length)];
+          localStorage.setItem('dest', dest);
+        }
+      }
+
+      // Redirect based on the destination.
+      if (dest === "") {
+        window.location.href = "home.html";
+      } else {
+        window.location.href = `home_${dest}.html`;
+      }
+    })();
+  </script>
+</head>
+<body>
+  <p>Redirecting, please wait...</p>
+</body>
+</html>

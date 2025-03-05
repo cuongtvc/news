@@ -1,0 +1,104 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Điểm tin 24h</title>
+  <style>
+    body {
+      margin: 0;
+      padding: 0;
+      font-family: Arial, sans-serif;
+      background: #f4f4f4;
+    }
+    .container {
+      max-width: 1200px;
+      margin: 0 auto;
+      padding: 20px;
+      background: #fff;
+    }
+    h1 {
+      text-align: center;
+      margin-bottom: 30px;
+    }
+    .news-item {
+      margin-bottom: 20px;
+      padding: 20px;
+      border-bottom: 1px solid #ccc;
+    }
+    .news-title {
+      font-size: 1.5rem;
+      font-weight: bold;
+      margin-bottom: 10px;
+    }
+    .news-summary {
+      font-size: 1rem;
+      line-height: 1.5;
+    }
+    /* Responsive adjustments */
+    @media (max-width: 768px) {
+      .news-title {
+        font-size: 1.25rem;
+      }
+      .news-summary {
+        font-size: 0.9rem;
+      }
+      .container {
+        padding: 15px;
+      }
+    }
+    @media (max-width: 480px) {
+      .news-item {
+        padding: 15px;
+      }
+      .news-title {
+        font-size: 1.1rem;
+      }
+      .news-summary {
+        font-size: 0.85rem;
+      }
+    }
+  </style>
+    <!-- Google Tag Manager -->
+    <script>(function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':
+    new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],
+    j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
+    'https://www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);
+    })(window,document,'script','dataLayer','GTM-W9WTM4SP');</script>
+    <!-- End Google Tag Manager -->
+</head>
+<body>
+    <!-- Google Tag Manager (noscript) -->
+    <noscript><iframe src="https://www.googletagmanager.com/ns.html?id=GTM-W9WTM4SP"
+    height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
+    <!-- End Google Tag Manager (noscript) -->
+  <div class="container">
+    <h1>Điểm tin 24h</h1>
+    <div id="newsContainer"></div>
+  </div>
+  
+  <script>
+    // Example JSON array with news objects
+    const newsData = [{"title":"Ông Trump nhận tín hiệu đàm phán hòa bình mạnh mẽ từ Nga, Ukraine","content":"Tổng thống Mỹ Donald Trump thông báo rằng ông đã nhận được những tín hiệu tích cực từ Nga và Ukraine về việc sẵn sàng đàm phán chấm dứt xung đột. Trong bài phát biểu trước quốc hội, ông Trump nhấn mạnh rằng Tổng thống Ukraine Volodymyr Zelensky đã gửi một bức thư thể hiện thiện chí hợp tác để đạt được hòa bình. Ông cũng cho biết Mỹ đang có cuộc thảo luận nghiêm túc với Nga nhằm thúc đẩy các nỗ lực hòa bình và sẵn sàng ký thỏa thuận về khoáng sản.","link":"https://dantri.com.vn/the-gioi/ong-trump-nhan-tin-hieu-dam-phan-hoa-binh-manh-me-tu-nga-ukraine-20250305114759247.htm","cat":"the-gioi","positivity":8,"importance":9,"question":"Ông Trump nhận tín hiệu gì từ Nga và Ukraine về hòa bình?","answers":[{"text":"Tín hiệu mạnh mẽ về thiện chí đàm phán hòa bình","correct":true},{"text":"Tín hiệu từ các nước châu Âu","correct":false},{"text":"Không có tín hiệu nào","correct":false},{"text":"Tín hiệu về quân sự từ Nga","correct":false},{"text":"Tín hiệu từ Liên Hợp Quốc","correct":false}]},{"title":"10 việc mọi người thường làm sai","content":"Bài viết trình bày 10 việc mọi người thường làm sai trong cuộc sống hàng ngày, dẫn đến những phiền toái không cần thiết. Ví dụ, nhiều người không biết cách sử dụng găng tay dùng một lần đúng cách, hay cách mở bao bì gạo một cách hiệu quả. Bài viết cung cấp những mẹo hữu ích để cải thiện cách sử dụng các vật dụng thông thường, từ khóa kéo quần jeans đến cách mở mì ly, giúp người đọc tiết kiệm thời gian và công sức.","link":"https://vnexpress.net/10-viec-moi-nguoi-thuong-lam-sai-4857027.html","cat":"gia-dinh","positivity":8,"importance":7,"question":"Những việc nào mọi người thường làm sai trong cuộc sống hàng ngày?","answers":[{"text":"Cách mở bao bì và sử dụng vật dụng đúng cách","correct":true},{"text":"Sử dụng điện thoại thông minh","correct":false},{"text":"Nấu ăn không đúng cách","correct":false},{"text":"Đi lại trên đường phố","correct":false},{"text":"Chọn đồ ăn không lành mạnh","correct":false}]},{"title":"Yamaha Việt Nam có thể phải mua lại gần 160.000 xe máy đã bán","content":"Yamaha Việt Nam thông báo triệu hồi gần 160.000 xe máy do có dấu hiệu sửa chữa số động cơ. Những xe này được sản xuất từ cuối năm 2021 đến cuối 2024, bao gồm nhiều dòng xe như Grande, Exciter, và NVX. Nếu phát hiện lỗi, Yamaha sẽ thương thảo mua lại xe của khách hàng hoặc đổi sang dòng xe khác, nhằm đảm bảo quyền lợi cho người tiêu dùng và tránh tình trạng bị tịch thu theo quy định pháp luật.","link":"https://vnexpress.net/yamaha-viet-nam-co-the-phai-mua-lai-gan-160-000-xe-may-da-ban-4857010.html","cat":"oto-xe-may","positivity":3,"importance":8,"question":"Tại sao Yamaha Việt Nam phải triệu hồi gần 160.000 xe máy?","answers":[{"text":"Do có dấu hiệu sửa chữa số động cơ.","correct":true},{"text":"Vì xe không đạt tiêu chuẩn an toàn.","correct":false},{"text":"Để đổi mới các dòng xe cũ.","correct":false},{"text":"Để nâng cao chất lượng sản phẩm.","correct":false}]},{"title":"Sắp xét xử vụ cựu chủ tịch tỉnh An Giang nhận tiền, giúp sức cho doanh nghiệp khai thác cát lậu","content":"Tòa án Nhân dân Thành phố Hồ Chí Minh sẽ xét xử cựu chủ tịch tỉnh An Giang, Nguyễn Thanh Bình, cùng 43 bị cáo trong vụ khai thác cát lậu vào ngày 24-3-2025. Ông Bình bị truy tố vì lợi dụng chức vụ quyền hạn, trong khi chủ tịch Công ty Trung Hậu 68, Lê Quang Bình, bị truy tố về tội đưa hối lộ và các tội danh khác. Vụ việc liên quan đến việc cấp phép khai thác cát trái phép, dẫn đến thiệt hại lớn cho nhà nước với số tiền thu lợi bất chính gần 294 tỷ đồng từ hoạt động khai thác cát lậu.","link":"https://tuoitre.vn/sap-xet-xu-vu-cuu-chu-tich-tinh-an-giang-nhan-tien-giup-suc-cho-doanh-nghiep-khai-thac-cat-lau-20250305111334286.htm","cat":"phap-luat","positivity":2,"importance":8,"question":"Vụ xét xử cựu chủ tịch tỉnh An Giang liên quan đến vấn đề gì?","answers":[{"text":"Khai thác cát lậu","correct":true},{"text":"Buôn bán ma túy","correct":false},{"text":"Tham nhũng trong ngành giáo dục","correct":false},{"text":"Giải quyết khiếu nại đất đai","correct":false}]},{"title":"Đà Nẵng tung loạt combo du lịch, người dân nhiều tỉnh được đi cáp treo Bà Nà giá 350.000","content":"Đà Nẵng đã công bố loạt chương trình kích cầu du lịch cho năm 2025, bao gồm giá vé cáp treo Bà Nà chỉ 350.000 đồng cho người dân các tỉnh miền Trung và Tây Nguyên. Chương trình cũng sẽ tổ chức nhiều sự kiện văn hóa, nghệ thuật và lễ hội hấp dẫn nhằm thu hút du khách. Ngoài ra, nhiều ưu đãi từ các doanh nghiệp du lịch cũng được áp dụng trong dịp này, hứa hẹn mang lại trải nghiệm phong phú cho du khách.","link":"https://tuoitre.vn/da-nang-tung-loat-combo-du-lich-nguoi-dan-nhieu-tinh-duoc-di-cap-treo-ba-na-gia-350-000-20250305102922375.htm","cat":"du-lich","positivity":8,"importance":7,"question":"Đà Nẵng có chương trình gì mới cho du khách trong năm 2025?","answers":[{"text":"Chương trình kích cầu du lịch với giá vé cáp treo Bà Nà 350.000 đồng.","correct":true},{"text":"Mở thêm nhiều khách sạn 5 sao mới.","correct":false},{"text":"Tăng cường quảng bá du lịch biển.","correct":false},{"text":"Giảm giá vé máy bay cho du khách.","correct":false}]}];;
+    
+    const container = document.getElementById("newsContainer");
+    
+    newsData.forEach(news => {
+      const newsItem = document.createElement("div");
+      newsItem.className = "news-item";
+      
+      const title = document.createElement("div");
+      title.className = "news-title";
+      title.textContent = news.title;
+      
+      const summary = document.createElement("div");
+      summary.className = "news-summary";
+      summary.textContent = news.summary;
+      
+      newsItem.appendChild(title);
+      newsItem.appendChild(summary);
+      container.appendChild(newsItem);
+    });
+  </script>
+</body>
+</html>

@@ -83,7 +83,7 @@
     
     const container = document.getElementById("newsContainer");
     
-    newsData.forEach(news => {
+    newsData.filter(item => item.importance >= 9).forEach(news => {
       const newsItem = document.createElement("div");
       newsItem.className = "news-item";
       

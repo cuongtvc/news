@@ -1,93 +1,790 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Điểm tin 24h</title>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Điểm tin - Quiz Game</title>
   <style>
-    body {
+    /* 
+      ====================================================
+      1) THEME VARIABLES
+      ====================================================
+    */
+    :root {
+      --bg-color: #f4f4f4;
+      --text-color: #333;
+      --container-bg: #fff;
+      --primary-color: #007BFF;
+      --secondary-color: #555;
+      --border-color: #ddd;
+      --answer-bg-hover: #e0e0e0;
+    }
+    [data-theme="dark"] {
+      --bg-color: #1f1f1f;
+      --text-color: #eee;
+      --container-bg: #2a2a2a;
+      --primary-color: #66aaff;
+      --secondary-color: #ccc;
+      --border-color: #555;
+      --answer-bg-hover: #444;
+    }
+    /*
+      ====================================================
+      2) GLOBAL BASE STYLING
+      ====================================================
+    */
+    * {
+      box-sizing: border-box;
       margin: 0;
       padding: 0;
+    }
+    body {
       font-family: Arial, sans-serif;
-      background: #f4f4f4;
+      background-color: var(--bg-color);
+      color: var(--text-color);
+      transition: background-color 0.3s, color 0.3s;
+      position: relative;
+      overflow-x: hidden;
+    }
+    a {
+      color: var(--text-color);
+      text-decoration: none;
+    }
+    a:hover {
+      text-decoration: underline;
     }
     .container {
-      max-width: 1200px;
-      margin: 0 auto;
-      padding: 20px;
-      background: #fff;
+      max-width: 900px;
+      margin: 20px auto;
+      background: var(--container-bg);
+      padding: 25px;
+      border-radius: 8px;
+      box-shadow: 0 0 12px rgba(0, 0, 0, 0.1);
+      position: relative;
+      transition: background-color 0.3s;
     }
-    h1 {
-      text-align: center;
-      margin-bottom: 30px;
-    }
-    .news-item {
-      margin-bottom: 20px;
-      padding: 20px;
-      border-bottom: 1px solid #ccc;
-    }
-    .news-title {
-      font-size: 1.5rem;
-      font-weight: bold;
-      margin-bottom: 10px;
-    }
-    .news-summary {
-      font-size: 1rem;
-      line-height: 1.5;
-    }
-    /* Responsive adjustments */
-    @media (max-width: 768px) {
-      .news-title {
-        font-size: 1.25rem;
-      }
-      .news-summary {
-        font-size: 0.9rem;
-      }
+    @media (max-width: 600px) {
       .container {
         padding: 15px;
       }
-    }
-    @media (max-width: 480px) {
-      .news-item {
-        padding: 15px;
-      }
-      .news-title {
+      h3 {
         font-size: 1.1rem;
       }
-      .news-summary {
-        font-size: 0.85rem;
-      }
+    }
+    /*
+      ====================================================
+      3) SCOREBOARD & CONTROLS
+      ====================================================
+    */
+    .header-bar {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      flex-wrap: wrap;
+      gap: 10px;
+      margin-bottom: 20px;
+    }
+    .scoreboard {
+      display: flex;
+      align-items: center;
+      font-size: 18px;
+      font-weight: bold;
+      gap: 8px;
+    }
+    .scoreboard-icon {
+      width: 24px;
+      height: 24px;
+      background-color: #ffcc00;
+      mask: url('data:image/svg+xml;base64,PHN2ZyBmaWxsPSIjMDA3QkZGIiB2aWV3Qm94PSIwIDAgMjQgMjQiIHdpZHRoPSIyNCIgaGVpZ2h0PSIyNCI+CjxwYXRoIGQ9Ik0xMiA1LjgybC0yLjY0LDUuMzMtNS44Ny44NjcsNCwyLjYyMWwtLjg3LDUuODcsNS4zMy0yLjY0TDExLDE5bDIuNjQtNS4zMyw1Ljg3LS44NjctNC0yLjYyMS44Ny01Ljg3LTUuMzMsMi42NE0xMiA0TDE1IDEwTDIyIDExTDE3IDE1LjE2TDExIDE0TDEwIDIxTDcgMTVIMFYxMUw2IDEwTDEyIDRaIi8+Cjwvc3ZnPg==') center/contain no-repeat;
+    }
+    .controls {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      flex-wrap: wrap;
+    }
+    .controls label {
+      font-weight: bold;
+      color: var(--secondary-color);
+    }
+    .controls select {
+      padding: 6px;
+      font-size: 14px;
+      border: 1px solid var(--border-color);
+      border-radius: 3px;
+      background: transparent;
+      color: var(--text-color);
+      outline: none;
+      transition: background-color 0.2s;
+    }
+    .controls select:hover {
+      background-color: var(--answer-bg-hover);
+    }
+    .btn {
+      padding: 8px 16px;
+      font-size: 14px;
+      border: none;
+      border-radius: 3px;
+      cursor: pointer;
+      background-color: var(--primary-color);
+      color: #fff;
+      transition: background-color 0.3s ease, transform 0.2s, box-shadow 0.2s;
+      box-shadow: 0 2px 6px rgba(0,0,0,0.1);
+    }
+    .btn:hover {
+      background-color: #0056b3;
+      transform: translateY(-2px);
+      box-shadow: 0 4px 8px rgba(0,0,0,0.2);
+    }
+    /*
+      ====================================================
+      4) NEWS ITEM & ANIMATIONS
+      ====================================================
+    */
+    .news-item {
+      border-bottom: 1px solid var(--border-color);
+      padding: 15px 0;
+      animation: slideIn 0.4s ease both;
+    }
+    .news-item:last-child {
+      border-bottom: none;
+    }
+    .news-item p {
+      margin: 6px 0;
+      line-height: 1.5;
+      transition: color 0.3s;
+    }
+    .news-link {
+      display: inline-block;
+      margin-bottom: 8px;
+      font-size: 0.95rem;
+      color: var(--secondary-color);
+      transition: color 0.3s;
+    }
+    .news-link:hover {
+      color: var(--text-color);
+    }
+    @keyframes slideIn {
+      from { transform: translateX(20px); opacity: 0; }
+      to   { transform: translateX(0);   opacity: 1; }
+    }
+    .loading {
+      text-align: center;
+      font-size: 16px;
+      color: gray;
+      margin-top: 20px;
+    }
+    /* 
+      ====================================================
+      5) BACK-TO-TOP BUTTON
+      ====================================================
+    */
+    #back-to-top {
+      position: fixed;
+      bottom: 30px;
+      right: 30px;
+      display: none;
+      background-color: var(--primary-color);
+      color: #fff;
+      border: none;
+      border-radius: 50%;
+      width: 50px;
+      height: 50px;
+      font-size: 20px;
+      cursor: pointer;
+      box-shadow: 0 2px 5px rgba(0,0,0,0.3);
+      transition: opacity 0.3s ease, background-color 0.3s;
+      z-index: 9990;
+    }
+    #back-to-top:hover {
+      background-color: #0056b3;
+    }
+    /*
+      ====================================================
+      6) ANSWER BUTTONS & FEEDBACK
+      ====================================================
+    */
+    .answer-btn {
+      display: inline-block;
+      margin: 8px 8px 8px 0;
+      padding: 10px 16px;
+      border: 1px solid var(--border-color);
+      border-radius: 12px;
+      cursor: pointer;
+      background-color: #f1f1f1;
+      transition: transform 0.2s, background-color 0.3s, border 0.3s;
+      color: #000;
+      font-size: 16px;
+      font-weight: 600;
+    }
+    [data-theme="dark"] .answer-btn {
+      background-color: #444;
+      color: #fff;
+    }
+    .answer-btn:hover {
+      background-color: var(--answer-bg-hover);
+      transform: scale(1.05);
+    }
+    .answer-btn:focus {
+      outline: 2px solid var(--primary-color);
+      outline-offset: 2px;
+    }
+    .answer-btn.correct {
+      background-color: #c1f0c1 !important;
+      border-color: #50b750;
+      color: #000;
+    }
+    .answer-btn.incorrect {
+      background-color: #f9bdbd !important;
+      border-color: #e05b5b;
+      animation: shake 0.3s;
+      color: #000;
+    }
+    @keyframes shake {
+      0% { transform: translateX(0); }
+      20% { transform: translateX(-6px); }
+      40% { transform: translateX(6px); }
+      60% { transform: translateX(-4px); }
+      80% { transform: translateX(4px); }
+      100% { transform: translateX(0); }
+    }
+    /*
+      ====================================================
+      7) CELEBRATION & CONFETTI
+      ====================================================
+    */
+    #celebration {
+      position: fixed;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%) scale(0.7);
+      background-color: var(--container-bg);
+      padding: 20px 30px;
+      border-radius: 8px;
+      border: 2px solid var(--primary-color);
+      text-align: center;
+      font-size: 20px;
+      color: var(--text-color);
+      font-weight: bold;
+      opacity: 0;
+      pointer-events: none;
+      transition: all 0.35s ease-in-out;
+      z-index: 9999;
+    }
+    #celebration.show {
+      opacity: 1;
+      transform: translate(-50%, -50%) scale(1);
+    }
+    .confetti {
+      position: fixed;
+      top: 0;
+      width: 10px;
+      height: 10px;
+      background-color: red;
+      animation: fall 1.5s linear forwards;
+      z-index: 9998; 
+    }
+    @keyframes fall {
+      0% { transform: translateY(-20px) rotate(0deg); opacity: 1; }
+      100% { transform: translateY(100vh) rotate(720deg); opacity: 0; }
+    }
+    /*
+      ====================================================
+      8) TUTORIAL OVERLAY (for first-time users)
+      ====================================================
+    */
+    .overlay {
+      position: fixed;
+      top: 0; 
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background-color: rgba(0,0,0,0.7);
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      z-index: 9998;
+    }
+    .overlay.hidden {
+      display: none;
+    }
+    .overlay-content {
+      background-color: var(--container-bg);
+      border: 2px solid var(--primary-color);
+      border-radius: 8px;
+      padding: 20px;
+      max-width: 400px;
+      text-align: center;
+      color: var(--text-color);
+      box-shadow: 0 0 15px rgba(0,0,0,0.2);
+      animation: fadeInUp 0.5s ease;
+    }
+    @keyframes fadeInUp {
+      0%   { transform: translateY(30px); opacity: 0; }
+      100% { transform: translateY(0);   opacity: 1; }
+    }
+    /*
+      ====================================================
+      9) INCORRECT ANSWER MODAL
+      ====================================================
+    */
+    .modal {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background: rgba(0,0,0,0.6);
+      display: none;
+      justify-content: center;
+      align-items: center;
+      z-index: 10000;
+    }
+    .modal.show {
+      display: flex;
+    }
+    .modal-content {
+      background-color: var(--container-bg);
+      padding: 20px;
+      border-radius: 8px;
+      text-align: center;
+      max-width: 400px;
+      width: 90%;
+      box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+    }
+    .modal-content p {
+      margin-bottom: 20px;
     }
   </style>
+    <!-- Google Tag Manager -->
+    <script>(function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':
+    new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],
+    j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
+    'https://www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);
+    })(window,document,'script','dataLayer','GTM-W9WTM4SP');</script>
+    <!-- End Google Tag Manager -->
 </head>
 <body>
+  <!-- Google Tag Manager (noscript) -->
+  <noscript><iframe src="https://www.googletagmanager.com/ns.html?id=GTM-W9WTM4SP"
+  height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
+  <!-- End Google Tag Manager (noscript) -->
+
+  <!-- Tutorial Overlay for first-time users -->
+  <div id="tutorial-overlay" class="overlay hidden">
+    <div class="overlay-content">
+      <h2>Chào mừng bạn đến với Quiz Game!</h2>
+      <p>Trả lời nhanh tin tức nóng hổi để tích lũy điểm.<br/>
+         Chọn đáp án đúng, bạn sẽ được +1 điểm và hiệu ứng pháo hoa!</p>
+      <button id="tutorial-close-btn" class="btn">Bắt đầu chơi!</button>
+    </div>
+  </div>
+
+  <!-- Incorrect Answer Modal -->
+  <div id="incorrect-modal" class="modal">
+    <div class="modal-content">
+      <p id="modal-message"></p>
+      <div style="margin-bottom: 20px;">
+        <label>
+          <input type="checkbox" id="modal-dont-show" />
+          Don't show this message again
+        </label>
+      </div>
+      <button id="modal-close-btn" class="btn">Close</button>
+    </div>
+  </div>
+
+  <!-- Celebration message overlay (hidden by default) -->
+  <div id="celebration">Chúc mừng! +1 điểm</div>
+
+  <!-- BACKGROUND MUSIC (optional) -->
+  <audio id="bg-music" src="https://www.soundhelix.com/examples/mp3/SoundHelix-Song-1.mp3" loop></audio>
+  <!-- Correct / Incorrect SFX -->
+  <audio id="correct-sound" src="https://www.soundjay.com/misc/sounds/bell-ringing-05.mp3"></audio>
+  <audio id="incorrect-sound" src="https://www.soundjay.com/button/sounds/beep-07.mp3"></audio>
+
   <div class="container">
-    <h1>Điểm tin 24h</h1>
-    <div id="newsContainer"></div>
+    <!-- HEADER BAR: scoreboard + controls + theme toggle + sound toggle -->
+    <div class="header-bar">
+      <!-- Scoreboard -->
+      <div class="scoreboard">
+        <div class="scoreboard-icon"></div>
+        <span>Điểm của bạn:</span> 
+        <span id="user-score">0</span>
+      </div>
+
+      <!-- Filter & other controls -->
+      <div class="controls">
+        <label for="news-filter">Điểm tin:</label>
+        <select id="news-filter">
+          <option value="important">Tin mới</option>
+          <option value="positive">Tin vui</option>
+          <option value="the-gioi">Thế Giới</option>
+          <option value="thoi-su">Thời Sự</option>
+          <option value="kinh-doanh">Kinh Doanh</option>
+          <option value="giai-tri">Giải Trí</option>
+          <option value="the-thao">Thể Thao</option>
+          <option value="phap-luat">Pháp Luật</option>
+          <option value="giao-duc">Giáo Dục</option>
+          <option value="suc-khoe">Sức Khỏe</option>
+          <option value="gia-dinh">Gia Đình</option>
+          <option value="du-lich">Du Lịch</option>
+          <option value="cong-nghe">Công Nghệ</option>
+          <option value="oto-xe-may">Ôtô Xe Máy</option>
+          <option value="tin-khac">Tin Khác</option>
+        </select>
+
+        <!-- Dark Mode Toggle -->
+        <button id="toggle-theme" class="btn">Dark Mode</button>
+
+        <!-- Sound Toggle -->
+        <button id="toggle-sound" class="btn">Sound OFF</button>
+      </div>
+    </div>
+    
+    <div id="news-container"></div>
+    <div id="loading" class="loading">Loading more news...</div>
   </div>
   
+  <button id="back-to-top">&#8679;</button>
+
   <script>
-    // Example JSON array with news objects
-    const newsData = [{"title":"Nguy cơ béo phì toàn cầu 2050","summary":"Báo cáo mới dự đoán rằng hơn 50% người trưởng thành trên thế giới và 33% trẻ em sẽ bị thừa cân hoặc béo phì vào năm 2050, gây ra sự đe dọa lớn cho sức khỏe cộng đồng."},{"title":"Mỹ ngừng viện trợ quân sự cho Ukraine","summary":"Mỹ đã tạm dừng viện trợ quân sự cho Ukraine, và các chuyên gia cảnh báo rằng hậu quả có thể là thảm khốc cho nước này trong cuộc chiến chống lại Nga."},{"title":"Người cứu 2,4 triệu trẻ sơ sinh","summary":"James Harrison, người đã cứu sống 2,4 triệu trẻ sơ sinh nhờ hiến máu và huyết tương quý hiếm trong hơn 60 năm, đã qua đời ở tuổi 88."},{"title":"Bắc Bling: Ca sĩ làm sứ giả du lịch","summary":"MV \"Bắc Bling\" của Hòa Minzy đã gây sốt toàn cầu không chỉ nhờ âm nhạc mà còn vì vai trò quảng bá văn hóa và du lịch Bắc Ninh, khiến ca sĩ trở thành sứ giả văn hóa."},{"title":"Real - Atletico, PSG - Liverpool thắp sáng Champions League","summary":"Cuộc đối đầu giữa PSG và Liverpool cùng trận derby Madrid giữa Real và Atletico là tâm điểm của vòng 1/8 Champions League tuần này."},{"title":"Zelensky: Ukraine cần kết thúc chiến tranh","summary":"Tổng thống Ukraine Volodymyr Zelensky kêu gọi sự hỗ trợ mạnh mẽ từ các đối tác quốc tế để chấm dứt cuộc xung đột với Nga, nhấn mạnh rằng người dân Ukraine xứng đáng có một cuộc sống bình thường và an toàn."},{"title":"Nga tấn công trại lính Ukraine","summary":"Bộ Quốc phòng Nga thông báo rằng cuộc tấn công bằng tên lửa Iskander vào trại huấn luyện lính Ukraine ở Dnipropetrovsk đã khiến hơn 150 người thương vong, bao gồm 30 chuyên gia nước ngoài."},{"title":"Đồ uống có đường và béo phì","summary":"Tiêu thụ đồ uống có đường thường xuyên dẫn đến thừa cân và béo phì, đặc biệt ở trẻ em, và cần có biện pháp như áp thuế để giảm mức tiêu thụ nhằm bảo vệ sức khỏe cộng đồng."},{"title":"Tổn thương não do thuốc giảm cân","summary":"Cô gái 21 tuổi bị tổn thương não nghiêm trọng sau khi sử dụng thuốc giảm cân chứa chất cấm Sibutramin mua trên mạng xã hội, dẫn đến tình trạng ngộ độc và phải nhập viện cấp cứu."},{"title":"5 điều quan trọng trong thời đại AI","summary":"Trong thời đại AI, con người cần phát triển những kỹ năng như sáng tạo, tư duy phản biện, và khả năng học hỏi không ngừng để thích ứng với sự thay đổi và duy trì mối liên hệ xã hội."},{"title":"Gói viện trợ vũ khí cho Ukraine","summary":"Phương Tây đã cung cấp cho Ukraine một gói viện trợ vũ khí mạnh nhất bao gồm các loại vũ khí nguy hiểm từ nhiều nước châu Âu như Anh, Canada và Đức trong bối cảnh căng thẳng gia tăng giữa Ukraine và Nga."},{"title":"Tại sao 'Anora' thắng Oscar?","summary":"Bộ phim 'Anora' đã gây ấn tượng mạnh khi giành 5 giải Oscar 2025, bao gồm Phim hay nhất, nhờ vào cốt truyện hấp dẫn và diễn xuất xuất sắc của nữ chính Mikey Madison."},{"title":"Lừa đảo việc nhẹ lương cao","summary":"Nhiều người Việt Nam trở thành nạn nhân của các đường dây lừa đảo xuyên biên giới với hứa hẹn 'việc nhẹ lương cao', dẫn đến tình trạng bóc lột và nguy hiểm cho sự an toàn của họ."}];;
+    /*
+      Replace this with your actual news data.
+      Example structure:
+      [
+        {
+          "title": "...",
+          "link": "...",
+          "content": "...",
+          "importance": 10,
+          "positivity": 5,
+          "cat": "the-gioi",
+          "question": "What is ...?",
+          "answers": [
+            { "text": "Option A", "correct": false },
+            { "text": "Option B", "correct": true }
+          ]
+        },
+        ...
+      ]
+    */
+    const newsData = [{"title":"Không còn công an huyện, công an xã có thêm những nhiệm vụ, quyền hạn gì?","content":"Từ ngày 1-3, công an huyện đã chính thức giải thể, và các nhiệm vụ, quyền hạn của công an cấp huyện được chuyển giao cho công an cấp xã. Công an xã giờ đây có thêm nhiều nhiệm vụ mới như cấp đổi giấy phép lái xe, cấp phiếu lý lịch tư pháp, và xử lý vi phạm giao thông. Điều này nhằm đảm bảo không làm gián đoạn chức năng của lực lượng công an địa phương trong bối cảnh tinh gọn bộ máy.","link":"https://tuoitre.vn/khong-con-cong-an-huyen-cong-an-xa-co-them-nhung-nhiem-vu-quyen-han-gi-20250304100853667.htm","cat":"phap-luat","positivity":7,"importance":8,"question":"Công an xã hiện có những nhiệm vụ và quyền hạn mới nào?","answers":[{"text":"Cấp đổi giấy phép lái xe và phiếu lý lịch tư pháp.","correct":true},{"text":"Chỉ thực hiện các nhiệm vụ trước đây của công an huyện.","correct":false},{"text":"Không có quyền hạn mới nào.","correct":false},{"text":"Chỉ cấp căn cước công dân.","correct":false}]},{"title":"TP.HCM lập đoàn kiểm tra xử lý người lang thang xin ăn, chèo kéo du khách","content":"UBND TP.HCM đã quyết định thành lập đoàn kiểm tra nhằm xử lý tình trạng người lang thang, ăn xin và chèo kéo du khách tại các khu vực công cộng và điểm du lịch. Chủ tịch UBND TP yêu cầu các quận, huyện và các lực lượng liên quan phối hợp rà soát, thống kê các trường hợp vi phạm và triển khai các biện pháp xử lý dứt điểm. Sở Y tế và các cơ quan khác sẽ thành lập đoàn kiểm tra liên ngành để kiểm soát tình trạng này và khuyến khích người dân báo cáo các vi phạm.","link":"https://tuoitre.vn/tp-hcm-lap-doan-kiem-tra-xu-ly-nguoi-lang-thang-xin-an-cheo-keo-du-khach-20250305084648399.htm","cat":"thoi-su","positivity":6,"importance":8,"question":"TP.HCM đang thực hiện biện pháp gì để xử lý người lang thang và chèo kéo du khách?","answers":[{"text":"Lập đoàn kiểm tra xử lý người lang thang và chèo kéo du khách","correct":true},{"text":"Tăng cường lực lượng cảnh sát giao thông","correct":false},{"text":"Thành lập các trạm y tế tại khu vực du lịch","correct":false},{"text":"Tổ chức lễ hội văn hóa cho du khách","correct":false}]},{"title":"Hé lộ cát-xê không ngờ của 300 người dân đóng MV \"Bắc Bling\"","content":"MV \"Bắc Bling\" của Hòa Minzy đã thu hút sự tham gia của 300 người dân mà không nhận cát-xê, thay vào đó là những phần quà nhỏ như chai nước mắm, túi hạt nêm và đôi dép. MV này đã đạt được thành công lớn khi lọt vào nhiều bảng xếp hạng quốc tế và thể hiện sự đoàn kết của cộng đồng. Hòa Minzy cảm kích sự hỗ trợ nhiệt tình từ bà con và cho biết đây là một trải nghiệm đáng nhớ trong sự nghiệp của mình.","link":"https://dantri.com.vn/giai-tri/he-lo-cat-xe-khong-ngo-cua-300-nguoi-dan-dong-mv-bac-bling-20250305073156886.htm","cat":"giai-tri","positivity":9,"importance":8,"question":"Cát-xê của 300 người dân tham gia MV \"Bắc Bling\" là gì?","answers":[{"text":"Phần quà nhỏ như chai nước mắm và túi hạt nêm","correct":true},{"text":"Tiền mặt 1 triệu đồng mỗi người","correct":false},{"text":"Quà tặng lớn từ nhà tài trợ","correct":false},{"text":"Cát-xê giống như diễn viên chuyên nghiệp","correct":false}]},{"title":"Hoang tưởng mắc bệnh sau khi tra 'bác sĩ TikTok'","content":"Nhiều người đã rơi vào trạng thái hoang tưởng về sức khỏe sau khi xem các video từ những 'bác sĩ tự phong' trên TikTok. Một người đàn ông 29 tuổi đã tự mua thuốc bổ sung kẽm sau khi tin rằng mình mắc bệnh tình dục, trong khi thực tế anh không có vấn đề gì về sức khỏe. Tình trạng tương tự cũng xảy ra với nhiều người khác, dẫn đến lo âu và hoang tưởng. Các bác sĩ cảnh báo rằng thông tin sai lệch trên mạng xã hội có thể gây hại cho sức khỏe tâm thần và thể chất của người dân.","link":"https://vnexpress.net/hoang-tuong-mac-benh-sau-khi-tra-bac-si-tiktok-4856840.html","cat":"suc-khoe","positivity":3,"importance":8,"question":"Tại sao nhiều người hoang tưởng mắc bệnh sau khi xem video trên TikTok?","answers":[{"text":"Do tiếp nhận thông tin sai lệch từ bác sĩ tự phong trên TikTok.","correct":true},{"text":"Vì họ không chăm sóc sức khỏe đúng cách.","correct":false},{"text":"Do thiếu thốn kiến thức y tế.","correct":false},{"text":"Vì họ không tin tưởng vào bác sĩ chuyên nghiệp.","correct":false}]},{"title":"Tỷ phú Elon Musk: Tổng thống Zelensky nên từ chức","content":"Tỷ phú Elon Musk đã kêu gọi Tổng thống Ukraine Volodymyr Zelensky từ chức để giúp Ukraine chuyển hướng về hòa bình. Musk cho rằng Zelensky không muốn cuộc chiến kết thúc vì sợ mất quyền lực và đã chỉ trích ông về tham nhũng. Mặc dù các quan chức Mỹ cũng đã đồng tình với ý kiến này, Zelensky đã bác bỏ lời kêu gọi từ chức và khẳng định rằng quyết định chỉ có thể do người dân Ukraine đưa ra.","link":"https://dantri.com.vn/the-gioi/ty-phu-elon-musk-tong-thong-zelensky-nen-tu-chuc-20250305073914785.htm","cat":"thoi-su","positivity":2,"importance":8,"question":"Tại sao Elon Musk kêu gọi Tổng thống Zelensky từ chức?","answers":[{"text":"Vì ông Zelensky không muốn cuộc chiến kết thúc","correct":true},{"text":"Vì ông Zelensky không đủ năng lực lãnh đạo","correct":false},{"text":"Vì ông Zelensky đã tham nhũng","correct":false},{"text":"Vì ông Zelensky không được lòng dân","correct":false}]},{"title":"Siết lại nề nếp, 'ứng xử' làm sao với chó mèo, tiệm nail, tiệm ăn trong chung cư","content":"Bài viết đề cập đến các quy định mới về quản lý và sử dụng chung cư tại TP.HCM, nhằm tạo ra môi trường sống an toàn và an ninh cho cư dân. Các quy định này yêu cầu những căn hộ cho thuê phải đáp ứng tiêu chuẩn, và việc cho thuê ngắn hạn cần được quản lý chặt chẽ hơn để tránh các mâu thuẫn trong cộng đồng cư dân. Đồng thời, cần có quy định rõ ràng hơn về việc cho thuê căn hộ để đảm bảo quyền lợi cho cả cư dân và chủ sở hữu căn hộ. Việc thực thi các quy định này vẫn gặp khó khăn do sự thiếu hụt trong luật pháp hiện hành.","link":"https://tuoitre.vn/siet-lai-ne-nep-ung-xu-lam-sao-voi-cho-meo-tiem-nail-tiem-an-trong-chung-cu-20250305084411057.htm","cat":"phap-luat","positivity":7,"importance":8,"question":"Các quy định mới về quản lý chung cư ở TP.HCM có tác dụng gì?","answers":[{"text":"Tạo ra môi trường sống an toàn cho cư dân.","correct":true},{"text":"Giảm giá thuê căn hộ.","correct":false},{"text":"Tăng số lượng căn hộ cho thuê.","correct":false},{"text":"Cấm hoàn toàn việc cho thuê căn hộ.","correct":false}]},{"title":"Điều gì xảy ra khi ăn gừng và nghệ thường xuyên?","content":"Ăn gừng và nghệ thường xuyên mang lại nhiều lợi ích cho sức khỏe nhờ các hợp chất như gingerol, shogaol và curcumin. Những chất này có tác dụng chống oxy hóa mạnh, giảm viêm, cải thiện tiêu hóa và tăng cường miễn dịch. Gừng có thể giúp giảm buồn nôn và hỗ trợ tiêu hóa, trong khi nghệ có tác dụng giảm trào ngược axit và hỗ trợ sức khỏe tim mạch. Việc kết hợp hai loại gia vị này vào chế độ ăn uống hàng ngày có thể mang lại nhiều lợi ích cho sức khỏe.","link":"https://vnexpress.net/dieu-gi-xay-ra-khi-an-gung-va-nghe-thuong-xuyen-4856785.html","cat":"suc-khoe","positivity":9,"importance":8,"question":"Ăn gừng và nghệ thường xuyên có tác dụng gì cho sức khỏe?","answers":[{"text":"Giúp tăng cường miễn dịch và cải thiện tiêu hóa.","correct":true},{"text":"Gây ra tác dụng phụ nghiêm trọng.","correct":false},{"text":"Làm tăng cholesterol trong máu.","correct":false},{"text":"Không có tác dụng gì đặc biệt.","correct":false}]},{"title":"Cong vẹo cột sống - bệnh dễ gặp với dân văn phòng","content":"Cong vẹo cột sống là tình trạng phổ biến ở dân văn phòng, gây ra bởi thói quen ngồi lâu và sai tư thế. Bài viết nêu rõ trường hợp của nhiều bệnh nhân như anh Tú và chị Nhi, những người phải trải qua điều trị bảo tồn hoặc phẫu thuật do cột sống bị cong vẹo. Bác sĩ khuyến cáo người làm văn phòng nên thay đổi thói quen sinh hoạt, đứng dậy đi lại thường xuyên và ngồi đúng tư thế để tránh tái phát tình trạng này.","link":"https://vnexpress.net/cong-veo-cot-song-benh-de-gap-voi-dan-van-phong-4856566.html","cat":"suc-khoe","positivity":7,"importance":8,"question":"Cong vẹo cột sống ảnh hưởng đến ai nhiều nhất?","answers":[{"text":"Người làm việc văn phòng","correct":true},{"text":"Người nông dân","correct":false},{"text":"Học sinh","correct":false},{"text":"Người cao tuổi","correct":false}]},{"title":"Xe máy tự ngã khiến ôtô bị húc lao xuống rãnh","content":"Vào ngày 2/3 tại Bù Đăng, một người đi xe máy loạng choạng tự ngã đã gây ra tai nạn cho ôtô phía sau khi tài xế ôtô phanh gấp để tránh va chạm. Hành động này đã dẫn đến việc một xe gắn camera hành trình đâm vào ôtô, khiến chiếc Innova lao xuống rãnh và kính sau bị vỡ. Bài viết nhấn mạnh tầm quan trọng của việc giữ khoảng cách an toàn khi tham gia giao thông để tránh những tình huống nguy hiểm.","link":"https://vnexpress.net/xe-may-tu-nga-khien-oto-bi-huc-lao-xuong-ranh-4856892.html","cat":"oto-xe-may","positivity":4,"importance":6,"question":"Tại sao ôtô lại lao xuống rãnh trong vụ tai nạn này?","answers":[{"text":"Do xe máy tự ngã khiến ôtô phanh gấp và bị đâm","correct":true},{"text":"Do tài xế ôtô không chú ý","correct":false},{"text":"Do đường trơn trượt","correct":false},{"text":"Do tài xế xe gắn camera hành trình lái xe ẩu","correct":false}]}];
+
+    // Pagination & filtering
+    let pageSize = 10;
+    let currentIndex = 0;
+    let isLoading = false;
+
+    // Score
+    let userScore = parseInt(localStorage.getItem("userScore")) || 0;
+    let currentFilter = localStorage.getItem("filter") || "important";
     
-    const container = document.getElementById("newsContainer");
-    
-    newsData.forEach(news => {
-      const newsItem = document.createElement("div");
-      newsItem.className = "news-item";
-      
-      const title = document.createElement("div");
-      title.className = "news-title";
-      title.textContent = news.title;
-      
-      const summary = document.createElement("div");
-      summary.className = "news-summary";
-      summary.textContent = news.summary;
-      
-      newsItem.appendChild(title);
-      newsItem.appendChild(summary);
-      container.appendChild(newsItem);
+    // Sound enabled?
+    let soundEnabled = false; // default OFF
+
+    // DOM elements
+    const scoreboardElem = document.getElementById("user-score");
+    const newsContainer = document.getElementById("news-container");
+    const loadingElem = document.getElementById("loading");
+    const filterDropdown = document.getElementById("news-filter");
+    const backToTopBtn = document.getElementById("back-to-top");
+    const celebrationElem = document.getElementById("celebration");
+
+    // Audio elements
+    const bgMusic = document.getElementById("bg-music");
+    const correctSound = document.getElementById("correct-sound");
+    const incorrectSound = document.getElementById("incorrect-sound");
+
+    // Buttons
+    const themeToggleBtn = document.getElementById("toggle-theme");
+    const soundToggleBtn = document.getElementById("toggle-sound");
+
+    // Initialize scoreboard
+    scoreboardElem.textContent = userScore;
+
+    // Set dropdown value
+    filterDropdown.value = currentFilter;
+
+    // FIRST-TIME USER OVERLAY
+    let isFirstTimeUser = localStorage.getItem("firstTimeUser");
+    if (!isFirstTimeUser) {
+      document.getElementById("tutorial-overlay").classList.remove("hidden");
+    }
+    document.getElementById("tutorial-close-btn").addEventListener("click", () => {
+      localStorage.setItem("firstTimeUser", "false");
+      document.getElementById("tutorial-overlay").classList.add("hidden");
     });
+
+    // THEMING
+    function initTheme() {
+      const savedTheme = localStorage.getItem("theme") || "light";
+      document.body.setAttribute("data-theme", savedTheme);
+      themeToggleBtn.textContent = savedTheme === "dark" ? "Light Mode" : "Dark Mode";
+    }
+    initTheme();
+
+    function toggleTheme() {
+      const currentTheme = document.body.getAttribute("data-theme");
+      const newTheme = currentTheme === "dark" ? "light" : "dark";
+      document.body.setAttribute("data-theme", newTheme);
+      localStorage.setItem("theme", newTheme);
+      themeToggleBtn.textContent = newTheme === "dark" ? "Light Mode" : "Dark Mode";
+      pushDataLayer({event: 'theme_' + newTheme});
+    }
+
+    // SOUND
+    function toggleSound() {
+      soundEnabled = !soundEnabled;
+      soundToggleBtn.textContent = soundEnabled ? "Sound ON" : "Sound OFF";
+
+      if (soundEnabled) {
+        bgMusic.play().catch(() => {
+          console.warn("Background music couldn't play automatically.");
+        });
+      } else {
+        bgMusic.pause();
+        bgMusic.currentTime = 0;
+      }
+      pushDataLayer({event: soundEnabled ? "sound_on" : "sound_off"})
+    }
+
+    function playCorrectSound() {
+      if (soundEnabled) correctSound.play();
+    }
+    function playIncorrectSound() {
+      if (soundEnabled) incorrectSound.play();
+    }
+
+    // FILTER NEWS
+    function getFilteredNewsData() {
+      switch (currentFilter) {
+        case "important":
+          return newsData.filter(item => item.importance >= 8);
+        case "positive":
+          return newsData.filter(item => item.positivity >= 8);
+        case "the-gioi":
+        case "thoi-su":
+        case "kinh-doanh":
+        case "giai-tri":
+        case "the-thao":
+        case "phap-luat":
+        case "giao-duc":
+        case "suc-khoe":
+        case "gia-dinh":
+        case "du-lich":
+        case "cong-nghe":
+        case "oto-xe-may":
+          return newsData.filter(item => item.cat === currentFilter);
+        case "tin-khac":
+          return newsData.filter(item => 
+            !['the-gioi', 'thoi-su', 'kinh-doanh', 'giai-tri', 'the-thao', 
+             'phap-luat', 'giao-duc', 'suc-khoe', 'gia-dinh', 'du-lich', 
+             'cong-nghe', 'oto-xe-may', 'y-kien'].includes(item.cat)
+          );
+        default:
+          return newsData;
+      }
+    }
+
+    // CONFETTI
+    function triggerConfetti() {
+      const confettiCount = 20;
+      for (let i = 0; i < confettiCount; i++) {
+        const confetti = document.createElement("div");
+        confetti.classList.add('confetti');
+        confetti.style.left = Math.random() * 100 + '%';
+        const hue = Math.floor(Math.random() * 360);
+        confetti.style.backgroundColor = `hsl(${hue}, 100%, 50%)`;
+        document.body.appendChild(confetti);
+        setTimeout(() => confetti.remove(), 1500);
+      }
+    }
+
+    // CELEBRATION OVERLAY
+    function showCelebration() {
+      celebrationElem.classList.add('show');
+      triggerConfetti();
+      setTimeout(() => {
+        celebrationElem.classList.remove('show');
+      }, 1500);
+    }
+
+    // Show Incorrect Answer Modal
+    function showIncorrectModal(message) {
+      const modal = document.getElementById("incorrect-modal");
+      const modalMessage = document.getElementById("modal-message");
+      modalMessage.textContent = message;
+      modal.classList.add("show");
+    }
+
+    // Modal close listener
+    document.getElementById("modal-close-btn").addEventListener("click", function() {
+      const modal = document.getElementById("incorrect-modal");
+      const dontShowCheckbox = document.getElementById("modal-dont-show");
+      if (dontShowCheckbox.checked) {
+        localStorage.setItem("dontShowIncorrectModal", "true");
+        pushDataLayer({event: 'dont_show_incorrect_modal'});
+      }
+      modal.classList.remove("show");
+    });
+
+    // RENDER Q&A
+    function renderQuestionAndAnswers(item, container, newsId) {
+      const answeredKey = "answered_" + newsId;
+      const contentElem = document.createElement("p");
+      contentElem.textContent = item.content || "";
+      const linkElem = document.createElement("a");
+      linkElem.className = "news-link";
+      linkElem.href = "#" + newsId;
+      linkElem.textContent = "Đọc thêm...";
+      linkElem.onclick = () => openNewTab(item.link);
+      const questionElem = document.createElement("p");
+      questionElem.id = newsId;
+      questionElem.style.fontWeight = "bold";
+      questionElem.textContent = item.question || "Câu hỏi:";
+      container.appendChild(questionElem);
+      const shuffledAnswers = shuffleArray([...item.answers]);
+      const answersContainer = document.createElement("div");
+      answersContainer.style.margin = "8px 0";
+      shuffledAnswers.forEach(answer => {
+        const answerBtn = document.createElement("button");
+        answerBtn.className = "answer-btn";
+        answerBtn.textContent = answer.text;
+        if (localStorage.getItem(answeredKey) && answer.correct) {
+          answerBtn.classList.add("correct");
+        }
+        answerBtn.addEventListener("click", () => {
+          if (localStorage.getItem(answeredKey)) {
+            pushDataLayer({event: 're_answer'});
+            return;
+          }
+          pushDataLayer({event: 'answer'});
+          if (answer.correct) {
+            userScore++;
+            localStorage.setItem("userScore", userScore);
+            scoreboardElem.textContent = userScore;
+            answerBtn.classList.add("correct");
+            localStorage.setItem(answeredKey, "true");
+            playCorrectSound();
+            showCelebration();
+          } else {
+            answerBtn.classList.add("incorrect");
+            setTimeout(() => {
+              answerBtn.classList.remove("incorrect");
+            }, 500);
+            playIncorrectSound();
+            const messages = [
+              "Ôi không! Thử lại nào!",
+              "Sai rồi... nhưng bạn vẫn còn cơ hội!",
+              "Chưa đúng, đừng bỏ cuộc!",
+              "Ồ, chưa chính xác. Hãy thử tiếp!"
+            ];
+            const randomMsg = messages[Math.floor(Math.random() * messages.length)];
+            if (!localStorage.getItem("dontShowIncorrectModal")) {
+              showIncorrectModal(randomMsg);
+            }
+          }
+        });
+        answersContainer.appendChild(answerBtn);
+      });
+      container.appendChild(answersContainer);
+      container.appendChild(contentElem);
+      container.appendChild(linkElem);
+    }
+
+    // LOAD MORE NEWS
+    function loadMoreNews() {
+      if (isLoading) return;
+      isLoading = true;
+      loadingElem.style.display = "block";
+      setTimeout(() => {
+        const filteredNews = getFilteredNewsData();
+        const nextBatch = filteredNews.slice(currentIndex, currentIndex + pageSize);
+        if (filteredNews.length === 0 && currentIndex === 0) {
+          newsContainer.innerHTML = "<p>Không có bài viết phù hợp với bộ lọc.</p>";
+          loadingElem.style.display = "none";
+          window.removeEventListener("scroll", handleScroll);
+          isLoading = false;
+          return;
+        }
+        nextBatch.forEach(item => {
+          const newsItem = document.createElement("div");
+          newsItem.classList.add("news-item");
+          const newsId = convertVietnameseToEnglish(item.title || "untitled");
+          renderQuestionAndAnswers(item, newsItem, newsId);
+          newsContainer.appendChild(newsItem);
+        });
+        currentIndex += pageSize;
+        isLoading = false;
+        if (currentIndex >= filteredNews.length) {
+          loadingElem.style.display = "none";
+          window.removeEventListener("scroll", handleScroll);
+        }
+      }, 500); 
+    }
+
+    // SCROLL EVENTS
+    function handleScroll() {
+      if (window.innerHeight + window.scrollY >= document.body.offsetHeight - 200) {
+        pushDataLayer({event: 'load_more_news'});
+        loadMoreNews();
+      }
+      backToTopBtn.style.display = window.scrollY > 300 ? "block" : "none";
+    }
+
+    // FILTER CHANGE
+    function onFilterChange() {
+      currentFilter = filterDropdown.value;
+      localStorage.setItem("filter", currentFilter);
+      pushDataLayer({event: 'filter_changed_' + currentFilter});
+      currentIndex = 0;
+      newsContainer.innerHTML = "";
+      loadingElem.style.display = "block";
+      window.addEventListener("scroll", handleScroll);
+      loadMoreNews();
+    }
+
+    // SMOOTH SCROLL TO TOP
+    function scrollToTop() {
+      window.scrollTo({ top: 0, behavior: 'smooth' });
+      pushDataLayer({event: 'scroll_to_top'});
+    }
+
+    // UTILS
+    function shuffleArray(array) {
+      for (let i = array.length - 1; i > 0; i--) {
+        const j = Math.floor(Math.random() * (i + 1));
+        [array[i], array[j]] = [array[j], array[i]];
+      }
+      return array;
+    }
+    function pushDataLayer(data) {
+      window.dataLayer = window.dataLayer || [];
+      window.dataLayer.push(data);
+    }
+    function openNewTab(link) {
+      pushDataLayer({event: 'view_details'});
+      window.open(link, '_self');
+    }
+    function convertVietnameseToEnglish(str) {
+      str = str.toLowerCase();
+      str = str.normalize('NFD');
+      str = str.replace(/[\u0300-\u036f]/g, '');
+      str = str.replace(/đ/g, 'd');
+      str = str.replace(/[^a-z0-9\s-]/g, '');
+      return str.trim().replace(/\s+/g, '-');
+    }
+
+    // INITIAL SETUP
+    loadMoreNews();
+    window.addEventListener("scroll", handleScroll);
+
+    // EVENT LISTENERS
+    filterDropdown.addEventListener("change", onFilterChange);
+    backToTopBtn.addEventListener("click", scrollToTop);
+    themeToggleBtn.addEventListener("click", toggleTheme);
+    soundToggleBtn.addEventListener("click", toggleSound);
   </script>
 </body>
 </html>

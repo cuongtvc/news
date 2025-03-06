@@ -1,0 +1,104 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Điểm tin 24h</title>
+  <style>
+    body {
+      margin: 0;
+      padding: 0;
+      font-family: Arial, sans-serif;
+      background: #f4f4f4;
+    }
+    .container {
+      max-width: 1200px;
+      margin: 0 auto;
+      padding: 20px;
+      background: #fff;
+    }
+    h1 {
+      text-align: center;
+      margin-bottom: 30px;
+    }
+    .news-item {
+      margin-bottom: 20px;
+      padding: 20px;
+      border-bottom: 1px solid #ccc;
+    }
+    .news-title {
+      font-size: 1.5rem;
+      font-weight: bold;
+      margin-bottom: 10px;
+    }
+    .news-summary {
+      font-size: 1rem;
+      line-height: 1.5;
+    }
+    /* Responsive adjustments */
+    @media (max-width: 768px) {
+      .news-title {
+        font-size: 1.25rem;
+      }
+      .news-summary {
+        font-size: 0.9rem;
+      }
+      .container {
+        padding: 15px;
+      }
+    }
+    @media (max-width: 480px) {
+      .news-item {
+        padding: 15px;
+      }
+      .news-title {
+        font-size: 1.1rem;
+      }
+      .news-summary {
+        font-size: 0.85rem;
+      }
+    }
+  </style>
+    <!-- Google Tag Manager -->
+    <script>(function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':
+    new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],
+    j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
+    'https://www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);
+    })(window,document,'script','dataLayer','GTM-W9WTM4SP');</script>
+    <!-- End Google Tag Manager -->
+</head>
+<body>
+    <!-- Google Tag Manager (noscript) -->
+    <noscript><iframe src="https://www.googletagmanager.com/ns.html?id=GTM-W9WTM4SP"
+    height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
+    <!-- End Google Tag Manager (noscript) -->
+  <div class="container">
+    <h1>Điểm tin 24h</h1>
+    <div id="newsContainer"></div>
+  </div>
+  
+  <script>
+    // Example JSON array with news objects
+    const newsData = [];;
+    
+    const container = document.getElementById("newsContainer");
+    
+    newsData.filter(item => item.importance >= 9).forEach(news => {
+      const newsItem = document.createElement("div");
+      newsItem.className = "news-item";
+      
+      const title = document.createElement("div");
+      title.className = "news-title";
+      title.textContent = news.title;
+      
+      const summary = document.createElement("div");
+      summary.className = "news-summary";
+      summary.textContent = news.content;
+      
+      newsItem.appendChild(title);
+      newsItem.appendChild(summary);
+      container.appendChild(newsItem);
+    });
+  </script>
+</body>
+</html>

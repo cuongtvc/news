@@ -81,6 +81,33 @@
     // Example JSON array with news objects
     const newsData = [
   {
+    "title": "Bị phạt vì lái valy điện trên đường trung tâm TP HCM",
+    "content": "Một người phụ nữ 43 tuổi đã bị phạt 225.000 đồng vì lái valy điện trên đường Lê Duẩn, quận 1, TP HCM. CSGT phát hiện và lập biên bản xử phạt vì phương tiện này vi phạm luật giao thông, gây nguy hiểm khi di chuyển trên đường. Trước đó, một người đàn ông Trung Quốc cũng đã bị phát hiện lái valy điện nhưng không thể xử lý do đã xuất cảnh.",
+    "link": "https://vnexpress.net/bi-phat-vi-lai-valy-dien-tren-duong-trung-tam-tp-hcm-4864811.html",
+    "cat": "phap-luat",
+    "positivity": 4,
+    "importance": 6,
+    "question": "Tại sao người phụ nữ bị phạt khi lái valy điện trên đường Lê Duẩn?",
+    "answers": [
+      {
+        "text": "Vì vi phạm luật giao thông",
+        "correct": true
+      },
+      {
+        "text": "Vì không có giấy phép lái xe",
+        "correct": false
+      },
+      {
+        "text": "Vì không đội mũ bảo hiểm",
+        "correct": false
+      },
+      {
+        "text": "Vì đi quá tốc độ",
+        "correct": false
+      }
+    ]
+  },
+  {
     "title": "Hai doanh nghiệp ở Đồng Tháp thu ngàn tỉ từ xuất khẩu bánh phồng tôm, bánh tráng",
     "content": "Hai doanh nghiệp ở Đồng Tháp, Bích Chi và Sa Giang, đã đạt doanh thu xuất khẩu ấn tượng, tổng cộng hơn 1.000 tỉ đồng trong năm qua. Sa Giang, một công ty con của Vĩnh Hoàn, đã thu hơn 500 tỉ đồng từ xuất khẩu, tăng 71% so với năm trước, trong khi Bích Chi cũng ghi nhận doanh thu xuất khẩu hơn 567 tỉ đồng, gấp ba lần từ thị trường nội địa. Cả hai công ty đều đang mở rộng quy mô sản xuất và thị trường xuất khẩu, nhằm tăng trưởng bền vững và nâng cao chất lượng sản phẩm.",
     "link": "https://tuoitre.vn/hai-doanh-nghiep-o-dong-thap-thu-ngan-ti-tu-xuat-khau-banh-phong-tom-banh-trang-20250323151810287.htm",
@@ -247,33 +274,6 @@
     ]
   },
   {
-    "title": "Thông báo làm sinh viên thốt lên \"trường sống vội quá, em theo không kịp\"",
-    "content": "Trường Đại học Công thương TPHCM đã công bố lịch nghỉ Tết Nguyên đán 2026 vào tháng 3, khiến nhiều sinh viên cảm thấy nôn nao và thốt lên rằng \"trường sống vội quá, em theo không kịp\". Thông báo này đã nhận được nhiều phản hồi tích cực từ sinh viên với hàng loạt bình luận hài hước trên mạng xã hội. Lịch nghỉ Tết kéo dài 4 tuần từ 9/2/2026 đến 8/3/2026 nhằm giúp sinh viên và cán bộ có thời gian nghỉ ngơi, đồng thời tránh tình trạng quá tải trong những ngày cao điểm gần Tết.",
-    "link": "https://dantri.com.vn/giao-duc/thong-bao-lam-sinh-vien-thot-len-truong-song-voi-qua-em-theo-khong-kip-20250323072426482.htm",
-    "cat": "giao-duc",
-    "positivity": 8,
-    "importance": 6,
-    "question": "Tại sao sinh viên Trường Đại học Công thương TPHCM lại cảm thấy nôn nao khi đọc thông báo nghỉ Tết?",
-    "answers": [
-      {
-        "text": "Vì trường công bố lịch nghỉ Tết sớm hơn dự kiến.",
-        "correct": true
-      },
-      {
-        "text": "Vì sinh viên không thích nghỉ Tết.",
-        "correct": false
-      },
-      {
-        "text": "Vì sinh viên đang bận học kỳ cuối.",
-        "correct": false
-      },
-      {
-        "text": "Vì trường không cho họ biết lịch nghỉ lễ.",
-        "correct": false
-      }
-    ]
-  },
-  {
     "title": "Hầu hết mọi người sẽ nhiễm HPV trong cuộc đời",
     "content": "Hầu hết mọi người sẽ nhiễm virus HPV trong cuộc đời, nhưng chỉ một số ít ca có thể dẫn đến ung thư. Virus HPV gồm hơn 200 chủng, trong đó có những chủng nguy cơ thấp không gây ung thư và thường tự khỏi. Tuy nhiên, các chủng nguy cơ cao có thể gây ra 5% tổng số ca ung thư toàn cầu, đặc biệt là ung thư cổ tử cung. Vaccine HPV có thể ngăn ngừa hơn 90% các bệnh ung thư do virus này gây ra, nhưng tỷ lệ tiêm vaccine ở Việt Nam còn thấp.",
     "link": "https://vnexpress.net/hau-het-moi-nguoi-se-nhiem-hpv-trong-cuoc-doi-4864744.html",
@@ -300,6 +300,33 @@
       },
       {
         "text": "Ung thư đại tràng",
+        "correct": false
+      }
+    ]
+  },
+  {
+    "title": "Thông báo làm sinh viên thốt lên \"trường sống vội quá, em theo không kịp\"",
+    "content": "Trường Đại học Công thương TPHCM đã công bố lịch nghỉ Tết Nguyên đán 2026 vào tháng 3, khiến nhiều sinh viên cảm thấy nôn nao và thốt lên rằng \"trường sống vội quá, em theo không kịp\". Thông báo này đã nhận được nhiều phản hồi tích cực từ sinh viên với hàng loạt bình luận hài hước trên mạng xã hội. Lịch nghỉ Tết kéo dài 4 tuần từ 9/2/2026 đến 8/3/2026 nhằm giúp sinh viên và cán bộ có thời gian nghỉ ngơi, đồng thời tránh tình trạng quá tải trong những ngày cao điểm gần Tết.",
+    "link": "https://dantri.com.vn/giao-duc/thong-bao-lam-sinh-vien-thot-len-truong-song-voi-qua-em-theo-khong-kip-20250323072426482.htm",
+    "cat": "giao-duc",
+    "positivity": 8,
+    "importance": 6,
+    "question": "Tại sao sinh viên Trường Đại học Công thương TPHCM lại cảm thấy nôn nao khi đọc thông báo nghỉ Tết?",
+    "answers": [
+      {
+        "text": "Vì trường công bố lịch nghỉ Tết sớm hơn dự kiến.",
+        "correct": true
+      },
+      {
+        "text": "Vì sinh viên không thích nghỉ Tết.",
+        "correct": false
+      },
+      {
+        "text": "Vì sinh viên đang bận học kỳ cuối.",
+        "correct": false
+      },
+      {
+        "text": "Vì trường không cho họ biết lịch nghỉ lễ.",
         "correct": false
       }
     ]
@@ -742,33 +769,6 @@
     ]
   },
   {
-    "title": "5 quả giàu chất xơ giúp giảm cholesterol",
-    "content": "Bài viết giới thiệu về 5 loại quả giàu chất xơ có tác dụng giảm cholesterol, bao gồm bơ, táo, lê, lựu và cam. Những loại quả này không chỉ cung cấp chất xơ mà còn chứa các chất chống oxy hóa, giúp cải thiện sức khỏe tim mạch và giảm tình trạng viêm nhiễm. Các loại quả này cũng giúp cảm giác no lâu hơn và hỗ trợ tiêu hóa, điều chỉnh lượng cholesterol xấu (LDL).",
-    "link": "https://vnexpress.net/5-qua-giau-chat-xo-giup-giam-cholesterol-4864653.html",
-    "cat": "suc-khoe",
-    "positivity": 8,
-    "importance": 7,
-    "question": "Những loại quả nào giúp giảm cholesterol?",
-    "answers": [
-      {
-        "text": "Bơ, táo, lê, lựu, cam",
-        "correct": true
-      },
-      {
-        "text": "Chuối, dưa hấu, nho",
-        "correct": false
-      },
-      {
-        "text": "Xoài, dứa, kiwi",
-        "correct": false
-      },
-      {
-        "text": "Nho khô, hạt chia, bưởi",
-        "correct": false
-      }
-    ]
-  },
-  {
     "title": "Bác bảo vệ gây sốt vì khéo dỗ bé gái chờ mẹ đến đón muộn",
     "content": "Bác bảo vệ Liu Jie, làm việc tại một trường mẫu giáo ở Sơn Đông, Trung Quốc, đã thu hút sự chú ý trên mạng xã hội khi ân cần dỗ dành bé gái Tiểu Đào đang chờ mẹ đến đón muộn. Khi thấy Tiểu Đào buồn bã, bác Liu đã bế bé và thực hiện một điệu nhảy vui vẻ để làm cô bé vui trở lại. Hành động này không chỉ giúp Tiểu Đào cảm thấy hạnh phúc mà còn thể hiện sự quan tâm và tình yêu thương của bác bảo vệ đối với trẻ nhỏ.",
     "link": "https://dantri.com.vn/giao-duc/bac-bao-ve-gay-sot-vi-kheo-do-be-gai-cho-me-den-don-muon-20250319110703515.htm",
@@ -822,6 +822,33 @@
       },
       {
         "text": "Bông cải xanh, bắp cải, đậu xanh",
+        "correct": false
+      }
+    ]
+  },
+  {
+    "title": "5 quả giàu chất xơ giúp giảm cholesterol",
+    "content": "Bài viết giới thiệu về 5 loại quả giàu chất xơ có tác dụng giảm cholesterol, bao gồm bơ, táo, lê, lựu và cam. Những loại quả này không chỉ cung cấp chất xơ mà còn chứa các chất chống oxy hóa, giúp cải thiện sức khỏe tim mạch và giảm tình trạng viêm nhiễm. Các loại quả này cũng giúp cảm giác no lâu hơn và hỗ trợ tiêu hóa, điều chỉnh lượng cholesterol xấu (LDL).",
+    "link": "https://vnexpress.net/5-qua-giau-chat-xo-giup-giam-cholesterol-4864653.html",
+    "cat": "suc-khoe",
+    "positivity": 8,
+    "importance": 7,
+    "question": "Những loại quả nào giúp giảm cholesterol?",
+    "answers": [
+      {
+        "text": "Bơ, táo, lê, lựu, cam",
+        "correct": true
+      },
+      {
+        "text": "Chuối, dưa hấu, nho",
+        "correct": false
+      },
+      {
+        "text": "Xoài, dứa, kiwi",
+        "correct": false
+      },
+      {
+        "text": "Nho khô, hạt chia, bưởi",
         "correct": false
       }
     ]
@@ -993,32 +1020,28 @@
     ]
   },
   {
-    "title": "Hệ lụy 'tình một đêm'",
-    "content": "Bài viết đề cập đến hệ lụy của \"tình một đêm\", đặc biệt là ảnh hưởng đến sức khỏe tâm lý và sinh lý của nam giới. Một trường hợp cụ thể là chàng trai 29 tuổi, dù đã xét nghiệm HIV âm tính nhưng vẫn sống trong lo âu và rối loạn tình dục sau khi có quan hệ không bảo vệ. Nhiều trường hợp khác cũng cho thấy nguy cơ mắc bệnh lây truyền qua đường tình dục và những vấn đề pháp lý có thể phát sinh từ kiểu quan hệ này. Các chuyên gia khuyên rằng nam giới nên xây dựng mối quan hệ lành mạnh và luôn sử dụng biện pháp bảo vệ để giảm thiểu rủi ro.",
-    "link": "https://vnexpress.net/he-luy-tinh-mot-dem-4864695.html",
+    "title": "5 điều nên làm mỗi ngày để giảm hôi miệng",
+    "content": "Bài viết đề cập đến 5 thói quen hàng ngày giúp giảm hôi miệng, bao gồm việc duy trì hệ tiêu hóa khỏe mạnh, giữ gìn vệ sinh răng miệng, súc miệng sau khi thức dậy, nhai một lá trầu sau bữa ăn và giữ đủ nước. Những thói quen này không chỉ giúp cải thiện hơi thở mà còn hỗ trợ sức khỏe răng miệng tổng thể. Việc chăm sóc miệng đúng cách có thể ngăn ngừa các nguyên nhân gây hôi miệng do vi khuẩn và thực phẩm.",
+    "link": "https://vnexpress.net/5-dieu-nen-lam-moi-ngay-de-giam-hoi-mieng-4864649.html",
     "cat": "suc-khoe",
-    "positivity": 3,
-    "importance": 8,
-    "question": "Hệ lụy của 'tình một đêm' ảnh hưởng đến sức khỏe như thế nào?",
+    "positivity": 8,
+    "importance": 7,
+    "question": "Làm thế nào để giảm hôi miệng hàng ngày?",
     "answers": [
       {
-        "text": "Có thể gây rối loạn lo âu và bệnh lây truyền qua đường tình dục.",
+        "text": "Duy trì hệ tiêu hóa khỏe mạnh.",
         "correct": true
       },
       {
-        "text": "Chỉ gây hại về mặt tâm lý.",
+        "text": "Chỉ cần đánh răng một lần mỗi ngày.",
         "correct": false
       },
       {
-        "text": "Không ảnh hưởng gì đến sức khỏe.",
+        "text": "Uống nhiều đồ uống có gas.",
         "correct": false
       },
       {
-        "text": "Giúp cải thiện sức khỏe tâm lý.",
-        "correct": false
-      },
-      {
-        "text": "Tăng cường sức khỏe sinh lý.",
+        "text": "Không cần súc miệng sau khi ăn.",
         "correct": false
       }
     ]
@@ -1051,55 +1074,32 @@
     ]
   },
   {
-    "title": "Nhịp tim chậm thế nào là bất thường?",
-    "content": "Nhịp tim chậm được định nghĩa là tình trạng nhịp tim dưới 60 nhịp mỗi phút, và có thể ảnh hưởng đến sức khỏe nếu đi kèm với các triệu chứng như tức ngực và hụt hơi. Đối với một số người, nhịp tim 45-55 nhịp mỗi phút có thể bình thường, nhưng nếu có triệu chứng kèm theo, cần thăm khám bác sĩ chuyên khoa. Các nguyên nhân có thể bao gồm rối loạn xung điện ở tim, vấn đề ở nút xoang nhĩ, hoặc block nhĩ thất. Việc chẩn đoán chính xác cần thực hiện các xét nghiệm như điện tâm đồ hoặc siêu âm tim.",
-    "link": "https://vnexpress.net/nhip-tim-cham-the-nao-la-bat-thuong-4864606.html",
+    "title": "Hệ lụy 'tình một đêm'",
+    "content": "Bài viết đề cập đến hệ lụy của \"tình một đêm\", đặc biệt là ảnh hưởng đến sức khỏe tâm lý và sinh lý của nam giới. Một trường hợp cụ thể là chàng trai 29 tuổi, dù đã xét nghiệm HIV âm tính nhưng vẫn sống trong lo âu và rối loạn tình dục sau khi có quan hệ không bảo vệ. Nhiều trường hợp khác cũng cho thấy nguy cơ mắc bệnh lây truyền qua đường tình dục và những vấn đề pháp lý có thể phát sinh từ kiểu quan hệ này. Các chuyên gia khuyên rằng nam giới nên xây dựng mối quan hệ lành mạnh và luôn sử dụng biện pháp bảo vệ để giảm thiểu rủi ro.",
+    "link": "https://vnexpress.net/he-luy-tinh-mot-dem-4864695.html",
     "cat": "suc-khoe",
-    "positivity": 5,
-    "importance": 7,
-    "question": "Nhịp tim chậm dưới 60 nhịp mỗi phút có ảnh hưởng gì đến sức khỏe không?",
+    "positivity": 3,
+    "importance": 8,
+    "question": "Hệ lụy của 'tình một đêm' ảnh hưởng đến sức khỏe như thế nào?",
     "answers": [
       {
-        "text": "Có, nhịp tim chậm có thể dẫn đến các vấn đề sức khỏe nghiêm trọng.",
+        "text": "Có thể gây rối loạn lo âu và bệnh lây truyền qua đường tình dục.",
         "correct": true
       },
       {
-        "text": "Không, nhịp tim chậm luôn là bình thường.",
+        "text": "Chỉ gây hại về mặt tâm lý.",
         "correct": false
       },
       {
-        "text": "Chỉ ảnh hưởng nếu dưới 40 nhịp mỗi phút.",
+        "text": "Không ảnh hưởng gì đến sức khỏe.",
         "correct": false
       },
       {
-        "text": "Chỉ cần theo dõi mà không cần điều trị.",
-        "correct": false
-      }
-    ]
-  },
-  {
-    "title": "5 điều nên làm mỗi ngày để giảm hôi miệng",
-    "content": "Bài viết đề cập đến 5 thói quen hàng ngày giúp giảm hôi miệng, bao gồm việc duy trì hệ tiêu hóa khỏe mạnh, giữ gìn vệ sinh răng miệng, súc miệng sau khi thức dậy, nhai một lá trầu sau bữa ăn và giữ đủ nước. Những thói quen này không chỉ giúp cải thiện hơi thở mà còn hỗ trợ sức khỏe răng miệng tổng thể. Việc chăm sóc miệng đúng cách có thể ngăn ngừa các nguyên nhân gây hôi miệng do vi khuẩn và thực phẩm.",
-    "link": "https://vnexpress.net/5-dieu-nen-lam-moi-ngay-de-giam-hoi-mieng-4864649.html",
-    "cat": "suc-khoe",
-    "positivity": 8,
-    "importance": 7,
-    "question": "Làm thế nào để giảm hôi miệng hàng ngày?",
-    "answers": [
-      {
-        "text": "Duy trì hệ tiêu hóa khỏe mạnh.",
-        "correct": true
-      },
-      {
-        "text": "Chỉ cần đánh răng một lần mỗi ngày.",
+        "text": "Giúp cải thiện sức khỏe tâm lý.",
         "correct": false
       },
       {
-        "text": "Uống nhiều đồ uống có gas.",
-        "correct": false
-      },
-      {
-        "text": "Không cần súc miệng sau khi ăn.",
+        "text": "Tăng cường sức khỏe sinh lý.",
         "correct": false
       }
     ]
@@ -1127,6 +1127,33 @@
       },
       {
         "text": "Gây ra bệnh tim mạch nhưng không liên quan đến bệnh truyền nhiễm.",
+        "correct": false
+      }
+    ]
+  },
+  {
+    "title": "Nhịp tim chậm thế nào là bất thường?",
+    "content": "Nhịp tim chậm được định nghĩa là tình trạng nhịp tim dưới 60 nhịp mỗi phút, và có thể ảnh hưởng đến sức khỏe nếu đi kèm với các triệu chứng như tức ngực và hụt hơi. Đối với một số người, nhịp tim 45-55 nhịp mỗi phút có thể bình thường, nhưng nếu có triệu chứng kèm theo, cần thăm khám bác sĩ chuyên khoa. Các nguyên nhân có thể bao gồm rối loạn xung điện ở tim, vấn đề ở nút xoang nhĩ, hoặc block nhĩ thất. Việc chẩn đoán chính xác cần thực hiện các xét nghiệm như điện tâm đồ hoặc siêu âm tim.",
+    "link": "https://vnexpress.net/nhip-tim-cham-the-nao-la-bat-thuong-4864606.html",
+    "cat": "suc-khoe",
+    "positivity": 5,
+    "importance": 7,
+    "question": "Nhịp tim chậm dưới 60 nhịp mỗi phút có ảnh hưởng gì đến sức khỏe không?",
+    "answers": [
+      {
+        "text": "Có, nhịp tim chậm có thể dẫn đến các vấn đề sức khỏe nghiêm trọng.",
+        "correct": true
+      },
+      {
+        "text": "Không, nhịp tim chậm luôn là bình thường.",
+        "correct": false
+      },
+      {
+        "text": "Chỉ ảnh hưởng nếu dưới 40 nhịp mỗi phút.",
+        "correct": false
+      },
+      {
+        "text": "Chỉ cần theo dõi mà không cần điều trị.",
         "correct": false
       }
     ]
@@ -1704,37 +1731,6 @@
     ]
   },
   {
-    "title": "Bớt bẩm sinh điều trị được không?",
-    "content": "Bớt bẩm sinh thường do tăng sinh tế bào sắc tố, xuất hiện dưới dạng mảng da màu nâu hoặc đen. Hầu hết các bớt này lành tính và không tự mất đi theo thời gian. Để điều trị, các phương pháp như phẫu thuật hoặc laser, đặc biệt là laser pico, có thể được áp dụng, và trẻ từ một tháng tuổi có thể được điều trị. Để đảm bảo an toàn và hiệu quả, nên đưa trẻ đến bác sĩ chuyên khoa da liễu để thăm khám và chọn phương pháp phù hợp.",
-    "link": "https://vnexpress.net/bot-bam-sinh-dieu-tri-duoc-khong-4864665.html",
-    "cat": "suc-khoe",
-    "positivity": 8,
-    "importance": 7,
-    "question": "Bớt bẩm sinh có thể điều trị bằng phương pháp nào?",
-    "answers": [
-      {
-        "text": "Laser pico",
-        "correct": true
-      },
-      {
-        "text": "Thuốc bôi tại nhà",
-        "correct": false
-      },
-      {
-        "text": "Chườm đá",
-        "correct": false
-      },
-      {
-        "text": "Không có cách nào",
-        "correct": false
-      },
-      {
-        "text": "Phẫu thuật truyền thống",
-        "correct": false
-      }
-    ]
-  },
-  {
     "title": "Tranh cãi gay gắt những khóa học dạy làm cha mẹ tốt",
     "content": "Tại Trung Quốc, các khóa học dạy làm cha mẹ đang gây tranh cãi với những khẩu hiệu như \"Cha mẹ sửa mình, không phải sửa con\". Những khóa học này thu hút nhiều phụ huynh đang gặp khó khăn trong việc nuôi dạy con cái. Tuy nhiên, hiệu quả của các khóa học này vẫn là đề tài gây tranh cãi, khi nhiều phụ huynh vẫn chưa thấy được cải thiện trong mối quan hệ với con hoặc tình trạng của con cái. Thêm vào đó, công ty cung cấp khóa học cũng đã bị phạt vì vi phạm quảng cáo.",
     "link": "https://dantri.com.vn/giao-duc/tranh-cai-gay-gat-nhung-khoa-hoc-day-lam-cha-me-tot-20250322150409471.htm",
@@ -1766,32 +1762,32 @@
     ]
   },
   {
-    "title": "Nguyên nhân khiến trẻ nôn trớ",
-    "content": "Trẻ sơ sinh dễ bị nôn trớ do hệ tiêu hóa chưa hoàn thiện, bú quá no hoặc một số bệnh lý đường tiêu hóa. Nôn trớ thường là tình trạng lành tính và có thể tự khỏi khi trẻ lớn hơn. Tuy nhiên, nếu tình trạng này kéo dài kèm theo các dấu hiệu bất thường như chậm tăng cân hay sốt cao, cha mẹ nên đưa trẻ đi khám. Nguyên nhân nôn trớ có thể bao gồm trào ngược dạ dày thực quản, dị ứng sữa hoặc nhiễm trùng tiêu hóa.",
-    "link": "https://vnexpress.net/nguyen-nhan-khien-tre-non-tro-4864611.html",
+    "title": "Bớt bẩm sinh điều trị được không?",
+    "content": "Bớt bẩm sinh thường do tăng sinh tế bào sắc tố, xuất hiện dưới dạng mảng da màu nâu hoặc đen. Hầu hết các bớt này lành tính và không tự mất đi theo thời gian. Để điều trị, các phương pháp như phẫu thuật hoặc laser, đặc biệt là laser pico, có thể được áp dụng, và trẻ từ một tháng tuổi có thể được điều trị. Để đảm bảo an toàn và hiệu quả, nên đưa trẻ đến bác sĩ chuyên khoa da liễu để thăm khám và chọn phương pháp phù hợp.",
+    "link": "https://vnexpress.net/bot-bam-sinh-dieu-tri-duoc-khong-4864665.html",
     "cat": "suc-khoe",
-    "positivity": 7,
-    "importance": 8,
-    "question": "Tại sao trẻ sơ sinh lại bị nôn trớ?",
+    "positivity": 8,
+    "importance": 7,
+    "question": "Bớt bẩm sinh có thể điều trị bằng phương pháp nào?",
     "answers": [
       {
-        "text": "Do hệ tiêu hóa chưa hoàn thiện",
+        "text": "Laser pico",
         "correct": true
       },
       {
-        "text": "Do trẻ ăn quá nhiều",
+        "text": "Thuốc bôi tại nhà",
         "correct": false
       },
       {
-        "text": "Do trẻ không được bú sữa",
+        "text": "Chườm đá",
         "correct": false
       },
       {
-        "text": "Do trẻ bị sốt cao",
+        "text": "Không có cách nào",
         "correct": false
       },
       {
-        "text": "Do trẻ không ăn uống đầy đủ",
+        "text": "Phẫu thuật truyền thống",
         "correct": false
       }
     ]
@@ -1819,6 +1815,37 @@
       },
       {
         "text": "Làm tăng cảm giác đói nhanh hơn.",
+        "correct": false
+      }
+    ]
+  },
+  {
+    "title": "Nguyên nhân khiến trẻ nôn trớ",
+    "content": "Trẻ sơ sinh dễ bị nôn trớ do hệ tiêu hóa chưa hoàn thiện, bú quá no hoặc một số bệnh lý đường tiêu hóa. Nôn trớ thường là tình trạng lành tính và có thể tự khỏi khi trẻ lớn hơn. Tuy nhiên, nếu tình trạng này kéo dài kèm theo các dấu hiệu bất thường như chậm tăng cân hay sốt cao, cha mẹ nên đưa trẻ đi khám. Nguyên nhân nôn trớ có thể bao gồm trào ngược dạ dày thực quản, dị ứng sữa hoặc nhiễm trùng tiêu hóa.",
+    "link": "https://vnexpress.net/nguyen-nhan-khien-tre-non-tro-4864611.html",
+    "cat": "suc-khoe",
+    "positivity": 7,
+    "importance": 8,
+    "question": "Tại sao trẻ sơ sinh lại bị nôn trớ?",
+    "answers": [
+      {
+        "text": "Do hệ tiêu hóa chưa hoàn thiện",
+        "correct": true
+      },
+      {
+        "text": "Do trẻ ăn quá nhiều",
+        "correct": false
+      },
+      {
+        "text": "Do trẻ không được bú sữa",
+        "correct": false
+      },
+      {
+        "text": "Do trẻ bị sốt cao",
+        "correct": false
+      },
+      {
+        "text": "Do trẻ không ăn uống đầy đủ",
         "correct": false
       }
     ]
@@ -2226,60 +2253,6 @@
     ]
   },
   {
-    "title": "Chứng hoang tưởng",
-    "content": "Chứng hoang tưởng là tình trạng tâm lý liên quan đến cảm giác nghi ngờ và sợ hãi về người khác mà không có căn cứ thực tế. Triệu chứng có thể bao gồm sự nghi ngờ dữ dội, cảm giác bị đe dọa, và khó khăn trong việc thư giãn. Chứng hoang tưởng thường liên quan đến các rối loạn tâm thần khác và có thể được điều trị bằng liệu pháp tâm lý và thuốc. Nếu không được kiểm soát, tình trạng này có thể dẫn đến những biến chứng nghiêm trọng và hành vi gây nguy hiểm.",
-    "link": "https://vnexpress.net/chung-hoang-tuong-4863575.html",
-    "cat": "suc-khoe",
-    "positivity": 4,
-    "importance": 8,
-    "question": "Chứng hoang tưởng là gì?",
-    "answers": [
-      {
-        "text": "Chứng hoang tưởng là tình trạng nghi ngờ và sợ hãi không có căn cứ về người khác.",
-        "correct": true
-      },
-      {
-        "text": "Chứng hoang tưởng là một loại bệnh truyền nhiễm.",
-        "correct": false
-      },
-      {
-        "text": "Chứng hoang tưởng là một trạng thái tạm thời không cần điều trị.",
-        "correct": false
-      },
-      {
-        "text": "Chứng hoang tưởng là một triệu chứng của bệnh cảm cúm.",
-        "correct": false
-      }
-    ]
-  },
-  {
-    "title": "Bỏ việc lương cao, sang Việt Nam 'tìm ý nghĩa cuộc đời'",
-    "content": "Choi Won Jun, một người Hàn Quốc, đã từ bỏ công việc lương cao ở Seoul để tìm kiếm ý nghĩa cuộc sống tại TP HCM, Việt Nam. Sau khi trải qua cuộc sống áp lực và nhàm chán, anh quyết định học nấu ăn và mở quán thịt nướng. Jun cảm nhận được sự ấm áp, tình người và tinh thần thoải mái của người Việt Nam, điều mà anh không tìm thấy ở Hàn Quốc. Giờ đây, anh làm việc chăm chỉ nhưng cảm thấy hạnh phúc và thỏa mãn hơn nhiều với cuộc sống mới của mình.",
-    "link": "https://vnexpress.net/bo-viec-luong-cao-sang-viet-nam-tim-y-nghia-cuoc-doi-4864410.html",
-    "cat": "gia-dinh",
-    "positivity": 9,
-    "importance": 7,
-    "question": "Tại sao Choi Won Jun quyết định bỏ việc ở Hàn Quốc để sống tại Việt Nam?",
-    "answers": [
-      {
-        "text": "Vì anh muốn tìm kiếm ý nghĩa cuộc sống và hạnh phúc hơn.",
-        "correct": true
-      },
-      {
-        "text": "Vì anh muốn kiếm nhiều tiền hơn.",
-        "correct": false
-      },
-      {
-        "text": "Vì anh muốn trở thành đầu bếp nổi tiếng.",
-        "correct": false
-      },
-      {
-        "text": "Vì anh muốn đi du lịch vòng quanh thế giới.",
-        "correct": false
-      }
-    ]
-  },
-  {
     "title": "IU: \"Em gái quốc dân\" giàu có xứ Hàn, từng trải qua tuổi thơ khó khăn",
     "content": "IU, tên thật là Lee Ji Eun, là một trong những ca sĩ và diễn viên nổi tiếng của Hàn Quốc, được biết đến với giọng hát ngọt ngào và nhiều ca khúc thành công. Mặc dù hiện tại sở hữu tài sản gần 50 triệu USD, IU đã trải qua một tuổi thơ khó khăn với nhiều thử thách, bao gồm việc bị bắt nạt và gia đình lâm vào cảnh khốn khó. Cô đã kiên trì theo đuổi ước mơ ca hát và hiện đang gây chú ý với bộ phim \"When life gives you tangerines\". IU không chỉ thành công trong sự nghiệp mà còn tích cực tham gia các hoạt động từ thiện.",
     "link": "https://dantri.com.vn/giai-tri/iu-em-gai-quoc-dan-giau-co-xu-han-tung-trai-qua-tuoi-tho-kho-khan-20250318195448529.htm",
@@ -2333,6 +2306,60 @@
       },
       {
         "text": "90%",
+        "correct": false
+      }
+    ]
+  },
+  {
+    "title": "Chứng hoang tưởng",
+    "content": "Chứng hoang tưởng là tình trạng tâm lý liên quan đến cảm giác nghi ngờ và sợ hãi về người khác mà không có căn cứ thực tế. Triệu chứng có thể bao gồm sự nghi ngờ dữ dội, cảm giác bị đe dọa, và khó khăn trong việc thư giãn. Chứng hoang tưởng thường liên quan đến các rối loạn tâm thần khác và có thể được điều trị bằng liệu pháp tâm lý và thuốc. Nếu không được kiểm soát, tình trạng này có thể dẫn đến những biến chứng nghiêm trọng và hành vi gây nguy hiểm.",
+    "link": "https://vnexpress.net/chung-hoang-tuong-4863575.html",
+    "cat": "suc-khoe",
+    "positivity": 4,
+    "importance": 8,
+    "question": "Chứng hoang tưởng là gì?",
+    "answers": [
+      {
+        "text": "Chứng hoang tưởng là tình trạng nghi ngờ và sợ hãi không có căn cứ về người khác.",
+        "correct": true
+      },
+      {
+        "text": "Chứng hoang tưởng là một loại bệnh truyền nhiễm.",
+        "correct": false
+      },
+      {
+        "text": "Chứng hoang tưởng là một trạng thái tạm thời không cần điều trị.",
+        "correct": false
+      },
+      {
+        "text": "Chứng hoang tưởng là một triệu chứng của bệnh cảm cúm.",
+        "correct": false
+      }
+    ]
+  },
+  {
+    "title": "Bỏ việc lương cao, sang Việt Nam 'tìm ý nghĩa cuộc đời'",
+    "content": "Choi Won Jun, một người Hàn Quốc, đã từ bỏ công việc lương cao ở Seoul để tìm kiếm ý nghĩa cuộc sống tại TP HCM, Việt Nam. Sau khi trải qua cuộc sống áp lực và nhàm chán, anh quyết định học nấu ăn và mở quán thịt nướng. Jun cảm nhận được sự ấm áp, tình người và tinh thần thoải mái của người Việt Nam, điều mà anh không tìm thấy ở Hàn Quốc. Giờ đây, anh làm việc chăm chỉ nhưng cảm thấy hạnh phúc và thỏa mãn hơn nhiều với cuộc sống mới của mình.",
+    "link": "https://vnexpress.net/bo-viec-luong-cao-sang-viet-nam-tim-y-nghia-cuoc-doi-4864410.html",
+    "cat": "gia-dinh",
+    "positivity": 9,
+    "importance": 7,
+    "question": "Tại sao Choi Won Jun quyết định bỏ việc ở Hàn Quốc để sống tại Việt Nam?",
+    "answers": [
+      {
+        "text": "Vì anh muốn tìm kiếm ý nghĩa cuộc sống và hạnh phúc hơn.",
+        "correct": true
+      },
+      {
+        "text": "Vì anh muốn kiếm nhiều tiền hơn.",
+        "correct": false
+      },
+      {
+        "text": "Vì anh muốn trở thành đầu bếp nổi tiếng.",
+        "correct": false
+      },
+      {
+        "text": "Vì anh muốn đi du lịch vòng quanh thế giới.",
         "correct": false
       }
     ]
@@ -3146,37 +3173,6 @@
     ]
   },
   {
-    "title": "Ho ra máu cảnh báo bệnh gì?",
-    "content": "Ho ra máu có thể là dấu hiệu của nhiều bệnh lý nghiêm trọng như ung thư phổi, lao phổi, và bệnh phổi tắc nghẽn mạn tính. Các nguyên nhân khác bao gồm viêm phế quản, tổn thương đường hô hấp, và các tình trạng viêm tự miễn. Nếu ho ra máu kéo dài hoặc kèm theo triệu chứng nghiêm trọng như đau ngực hay sút cân, người bệnh nên đi khám ngay. Để phòng ngừa, cần điều trị sớm các bệnh viêm nhiễm đường hô hấp và bỏ thuốc lá.",
-    "link": "https://vnexpress.net/ho-ra-mau-canh-bao-benh-gi-4860525.html",
-    "cat": "suc-khoe",
-    "positivity": 4,
-    "importance": 8,
-    "question": "Ho ra máu có thể cảnh báo bệnh gì nguy hiểm?",
-    "answers": [
-      {
-        "text": "Ung thư phổi",
-        "correct": true
-      },
-      {
-        "text": "Cảm cúm",
-        "correct": false
-      },
-      {
-        "text": "Viêm họng",
-        "correct": false
-      },
-      {
-        "text": "Cao huyết áp",
-        "correct": false
-      },
-      {
-        "text": "Đau dạ dày",
-        "correct": false
-      }
-    ]
-  },
-  {
     "title": "Bị liệt dây thần kinh số 7 nên ăn gì?",
     "content": "Bị liệt dây thần kinh số 7, người bệnh cần bổ sung thực phẩm giàu dinh dưỡng để hỗ trợ phục hồi. Các loại thực phẩm như thịt nạc, cá béo, ngũ cốc nguyên hạt và các loại đậu giàu omega-3 rất có lợi cho sức khỏe. Ngoài ra, các loại trái cây và rau xanh cung cấp chất chống oxy hóa, vitamin và khoáng chất thiết yếu, giúp tăng cường hệ miễn dịch và chức năng thần kinh. Uống đủ nước và duy trì chế độ ăn uống lành mạnh cũng rất quan trọng.",
     "link": "https://vnexpress.net/bi-liet-day-than-kinh-so-7-nen-an-gi-4864560.html",
@@ -3234,6 +3230,37 @@
       },
       {
         "text": "Chỉ cần tập thể dục mà không cần thay đổi chế độ ăn uống",
+        "correct": false
+      }
+    ]
+  },
+  {
+    "title": "Ho ra máu cảnh báo bệnh gì?",
+    "content": "Ho ra máu có thể là dấu hiệu của nhiều bệnh lý nghiêm trọng như ung thư phổi, lao phổi, và bệnh phổi tắc nghẽn mạn tính. Các nguyên nhân khác bao gồm viêm phế quản, tổn thương đường hô hấp, và các tình trạng viêm tự miễn. Nếu ho ra máu kéo dài hoặc kèm theo triệu chứng nghiêm trọng như đau ngực hay sút cân, người bệnh nên đi khám ngay. Để phòng ngừa, cần điều trị sớm các bệnh viêm nhiễm đường hô hấp và bỏ thuốc lá.",
+    "link": "https://vnexpress.net/ho-ra-mau-canh-bao-benh-gi-4860525.html",
+    "cat": "suc-khoe",
+    "positivity": 4,
+    "importance": 8,
+    "question": "Ho ra máu có thể cảnh báo bệnh gì nguy hiểm?",
+    "answers": [
+      {
+        "text": "Ung thư phổi",
+        "correct": true
+      },
+      {
+        "text": "Cảm cúm",
+        "correct": false
+      },
+      {
+        "text": "Viêm họng",
+        "correct": false
+      },
+      {
+        "text": "Cao huyết áp",
+        "correct": false
+      },
+      {
+        "text": "Đau dạ dày",
         "correct": false
       }
     ]
@@ -3327,33 +3354,6 @@
       },
       {
         "text": "Tàng trữ ma túy",
-        "correct": false
-      }
-    ]
-  },
-  {
-    "title": "Bỏ cấp huyện: Đề xuất lập phòng chuyên môn thuộc UBND cấp xã",
-    "content": "Bài viết đề xuất việc bỏ cấp huyện và thành lập các phòng chuyên môn thuộc UBND cấp xã để cải thiện quản lý hành chính. Theo chuyên gia TS Nguyễn Tiến Dĩnh, khi các xã trở thành \"huyện thu nhỏ\", việc tổ chức cơ quan chuyên môn sẽ giúp UBND cấp xã thực hiện nhiệm vụ hiệu quả hơn. Đề xuất này nhằm nâng cao chất lượng đội ngũ cán bộ công chức tại các cấp xã và tạo ra sự liên thông giữa các cấp chính quyền.",
-    "link": "https://tuoitre.vn/bo-cap-huyen-de-xuat-lap-phong-chuyen-mon-thuoc-ubnd-cap-xa-20250322155200237.htm",
-    "cat": "thoi-su",
-    "positivity": 8,
-    "importance": 9,
-    "question": "Đề xuất nào được đưa ra khi bỏ cấp huyện?",
-    "answers": [
-      {
-        "text": "Lập phòng chuyên môn thuộc UBND cấp xã",
-        "correct": true
-      },
-      {
-        "text": "Tăng số lượng cán bộ cấp huyện",
-        "correct": false
-      },
-      {
-        "text": "Giảm biên chế công chức cấp xã",
-        "correct": false
-      },
-      {
-        "text": "Tăng cường phân cấp cho cấp tỉnh",
         "correct": false
       }
     ]
